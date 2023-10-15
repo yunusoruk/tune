@@ -9,9 +9,7 @@ import {
     File,
     FileText,
     HelpCircle,
-    Home,
     Image,
-    LampCeiling,
     Laptop,
     Loader2,
     LucideProps,
@@ -30,8 +28,7 @@ import {
 
 
 export const Icons = {
-    logo: LampCeiling,
-    home: Home,
+    logo: Command,
     close: X,
     spinner: Loader2,
     chevronLeft: ChevronLeft,
