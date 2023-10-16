@@ -2,12 +2,16 @@ import Link from "next/link"
 
 import { marketingConfig } from "@/config/marketing"
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
 import { SiteFooter } from "@/components/site-footer"
 import { UserAccountNav } from "@/components/user-account-nav"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
+import { Sidebar } from "@/components/sidebar"
+import { dashboardConfig } from "@/config/dashboard"
+import { ModeToggle } from "@/components/mode-toggle"
+import { User } from "@prisma/client"
 
 
 interface MarketingLayoutProps {
@@ -20,42 +24,28 @@ export default async function MarketingLayout({
 
     const user = await getCurrentUser()
 
-    if (!user) {
-        return notFound()
-    }
+
 
     return (
-        <div className="flex min-h-screen flex-col">
-            <header className="container z-40 bg-background">
-                <div className="flex h-20 items-center justify-between py-6">
-                    <MainNav items={marketingConfig.mainNav} />
-                    {user ? (
-                        <UserAccountNav
-                            user={{
-                                name: user.name,
-                                image: user.image,
-                                email: user.email,
-                            }}
-                        />
-                    ) : (
-                        <nav>
-                            <Link
-                                href="/login"
-                                className={cn(
-                                    buttonVariants({ variant: "secondary", size: "sm" }),
-                                    "px-4"
-                                )}
-                            >
-                                Login
-                            </Link>
-                        </nav>
-                    )}
-
-
+        <div className="flex flex-col min-h-screen container">
+            <div className="flex-1 bg-background">
+                <div className="grid lg:grid-cols-5">
+                    <Sidebar playlists={[]} className="hidden lg:block " />
+                    <div className="col-span-3 lg:col-span-4 lg:border-l">
+                        <div className="h-full">
+                            <header className="sticky top-0 z-40 border-b bg-background mb-4 px-3">
+                                <div className="container flex h-20  items-center justify-between  ">
+                                    <MainNav user={user as User} items={dashboardConfig.mainNav} />
+                                </div>
+                            </header>
+                            <main className="flex-1 px-8">
+                                {children}
+                            </main>
+                        </div>
+                    </div>
                 </div>
-            </header>
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
+            </div>
+
         </div>
     )
 }

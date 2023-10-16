@@ -1,6 +1,7 @@
 import {
     AlertTriangle,
     ArrowRight,
+    BoxSelect,
     Check,
     ChevronLeft,
     ChevronRight,
@@ -17,6 +18,7 @@ import {
     MoreVertical,
     Pizza,
     Plus,
+    PlusCircle,
     Settings,
     SunMedium,
     Trash,
@@ -28,7 +30,8 @@ import {
 
 
 export const Icons = {
-    logo: Command,
+    plusCircle: PlusCircle,
+    logo: BoxSelect,
     close: X,
     spinner: Loader2,
     chevronLeft: ChevronLeft,

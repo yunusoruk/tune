@@ -4,9 +4,10 @@ import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import localFont from "next/font/local"
 import { siteConfig } from '@/config/site'
-import { ThemeProvider } from '@/components/theme-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import { Analytics } from '@/components/analytics'
 import { Toaster } from '@/components/ui/toaster'
+import { ModalProvider } from '@/components/providers/modal-provider'
 
 const fontSans = FontSans({ subsets: ['latin'], variable: "--font-sans" })
 
@@ -31,8 +32,8 @@ export const metadata = {
   ],
   authors: [
     {
-      name: "keci",
-      url: "https://keci.io",
+      name: "tune",
+      url: "https://tune.io",
     },
   ],
   creator: "keci",
@@ -53,7 +54,7 @@ export const metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
-    creator: "@shadcn",
+    creator: "@yo",
   },
   icons: {
     icon: "/favicon.ico",
@@ -82,6 +83,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem >
           {children}
+          <ModalProvider />
           <Analytics />
           <Toaster />
         </ThemeProvider>

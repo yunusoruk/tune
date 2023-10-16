@@ -1,14 +1,14 @@
 import { SiteConfig } from "@/types"
 
 export const siteConfig: SiteConfig = {
-  name: "keci",
+  name: "tune",
   description:
-    "Keci | Get ready for your next interview.",
-  url: "https://keci.io",
-  ogImage: "https://keci.io/og.jpg",
+    "Tune | Flow with the tune",
+  url: "https://tune.io",
+  ogImage: "https://tune.io/og.jpg",
   links: {
-    twitter: "https://twitter.com/keci",
+    twitter: "https://twitter.com/tune",
     github: "https://github.com/yunusoruk",
-    mail: "mailto:info@keci.io",
+    mail: "mailto:info@tune.io",
   },
 }

@@ -9,53 +9,48 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { MobileNav } from "@/components/mobile-nav"
 import { Command as Logo, X } from 'lucide-react'
+import { UserAccountNav } from "./user-account-nav"
+import { Button, buttonVariants } from "./ui/button"
+import { useModal } from "@/hooks/use-modal-store"
+import { User } from "@prisma/client"
 
 interface MainNavProps {
+    user: User
     items?: MainNavItem[]
     children?: React.ReactNode
 }
 
-export function MainNav({ items, children }: MainNavProps) {
+export function MainNav({ user, items, children }: MainNavProps) {
+
+
     const segment = useSelectedLayoutSegment()
     const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
 
+    const { onOpen } = useModal()
+
     return (
-        <div className="flex gap-6 md:gap-10">
-            <Link href="/" className="hidden items-center space-x-2 md:flex">
-                <Logo />
-                <span className="hidden font-bold sm:inline-block">
-                    {siteConfig.name}
-                </span>
-            </Link>
-            {items?.length ? (
-                <nav className="hidden gap-6 md:flex">
-                    {items?.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.disabled ? "#" : item.href}
-                            className={cn(
-                                "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm",
-                                item.href.startsWith(`/${segment}`)
-                                    ? "text-foreground"
-                                    : "text-foreground/60",
-                                item.disabled && "cursor-not-allowed opacity-80"
-                            )}
-                        >
-                            {item.title}
-                        </Link>
-                    ))}
+        <>
+            <div className="">
+            </div>
+            {user ? (
+                <UserAccountNav
+                    user={{
+                        name: user.name,
+                        image: user.image,
+                        email: user.email,
+                    }}
+                />
+            ) : (
+                <nav>
+
+                    <Button variant='secondary' size='sm' className="px-4" onClick={() => onOpen('loginModal')} >
+                        Login
+                    </Button>
+
                 </nav>
-            ) : null}
-            <button
-                className="flex items-center space-x-2 md:hidden"
-                onClick={() => setShowMobileMenu(!showMobileMenu)}
-            >
-                {showMobileMenu ? <X /> : <Logo />}
-                <span className="font-bold">Menu</span>
-            </button>
-            {showMobileMenu && items && (
-                <MobileNav items={items}>{children}</MobileNav>
+
             )}
-        </div>
+
+        </>
     )
 }
