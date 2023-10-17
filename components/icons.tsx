@@ -9,6 +9,7 @@ import {
     CreditCard,
     File,
     FileText,
+    Heart,
     HelpCircle,
     Image,
     Laptop,
@@ -30,6 +31,7 @@ import {
 
 
 export const Icons = {
+    heart: Heart,
     plusCircle: PlusCircle,
     logo: BoxSelect,
     close: X,

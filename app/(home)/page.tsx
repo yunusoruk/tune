@@ -1,13 +1,18 @@
+import AddMusicButton from "@/components/add-music-button";
 import { Icons } from "@/components/icons";
 import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder";
-import { Sidebar } from "@/components/sidebar";
+import { SongArtwork } from "@/components/song-artwork";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
+import { prismadb } from "@/lib/prismadb";
 
-export default function Home() {
+
+export default async function Home() {
+
+    const songs = await prismadb.song.findMany({})
+
     return (
         <Tabs defaultValue="music" className="h-full space-y-6">
             <div className="space-between flex items-center">
@@ -21,10 +26,7 @@ export default function Home() {
                     </TabsTrigger>
                 </TabsList>
                 <div className="ml-auto mr-4">
-                    <Button variant='outline'>
-                        <Icons.plusCircle className="mr-2 h-4 w-4" />
-                        Add music
-                    </Button>
+                    <AddMusicButton />
                 </div>
             </div>
             <TabsContent
@@ -45,16 +47,16 @@ export default function Home() {
                 <div className="relative">
                     <ScrollArea>
                         <div className="flex space-x-4 pb-4">
-                            {/* {listenNowAlbums.map((album) => (
-                              <AlbumArtwork
-                                key={album.name}
-                                album={album}
-                                className="w-[250px]"
-                                aspectRatio="portrait"
-                                width={250}
-                                height={330}
-                              />
-                            ))} */}
+                            {songs.map((song) => (
+                                <SongArtwork
+                                    key={song.id}
+                                    song={song}
+                                    className="w-[250px]"
+                                    aspectRatio="portrait"
+                                    width={250}
+                                    height={330}
+                                />
+                            ))}
                         </div>
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
@@ -71,16 +73,16 @@ export default function Home() {
                 <div className="relative">
                     <ScrollArea>
                         <div className="flex space-x-4 pb-4">
-                            {/* {madeForYouAlbums.map((album) => (
-                              <AlbumArtwork
-                                key={album.name}
-                                album={album}
-                                className="w-[150px]"
-                                aspectRatio="square"
-                                width={150}
-                                height={150}
-                              />
-                            ))} */}
+                            {songs.map((song) => (
+                                <SongArtwork
+                                    key={song.id}
+                                    song={song}
+                                    className="w-[150px]"
+                                    aspectRatio="square"
+                                    width={150}
+                                    height={150}
+                                />
+                            ))}
                         </div>
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
@@ -106,5 +108,4 @@ export default function Home() {
         </Tabs>
     )
 }
-
 

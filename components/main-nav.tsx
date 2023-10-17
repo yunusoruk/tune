@@ -13,6 +13,7 @@ import { UserAccountNav } from "./user-account-nav"
 import { Button, buttonVariants } from "./ui/button"
 import { useModal } from "@/hooks/use-modal-store"
 import { User } from "@prisma/client"
+import { ModeToggle } from "./mode-toggle"
 
 interface MainNavProps {
     user: User
@@ -33,20 +34,24 @@ export function MainNav({ user, items, children }: MainNavProps) {
             <div className="">
             </div>
             {user ? (
-                <UserAccountNav
-                    user={{
-                        name: user.name,
-                        image: user.image,
-                        email: user.email,
-                    }}
-                />
+                <div className="flex flex-row items-center space-x-2">
+                    <UserAccountNav
+                        user={{
+                            name: user.name,
+                            image: user.image,
+                            email: user.email,
+                        }}
+                    />
+                    {/* <ModeToggle /> */}
+                </div>
             ) : (
-                <nav>
+                <nav className="flex flex-row items-center space-x-4">
 
                     <Button variant='secondary' size='sm' className="px-4" onClick={() => onOpen('loginModal')} >
                         Login
                     </Button>
 
+                    {/* <ModeToggle /> */}
                 </nav>
 
             )}

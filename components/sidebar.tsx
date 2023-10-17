@@ -1,11 +1,13 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
 import { ScrollArea } from "./ui/scroll-area"
 import { Separator } from "./ui/separator"
 import { siteConfig } from "@/config/site"
 import Link from "next/link"
-import { Icons } from "./icons"
-import { ModeToggle } from "./mode-toggle"
+import { useRouter } from "next/navigation"
+import { useWindowPath } from "@/hooks/use-window-path"
 
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,6 +16,10 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Sidebar({ className, playlists }: SidebarProps) {
+
+    const router = useRouter()
+    const windowPath = useWindowPath()
+
     return (
         <div className={cn("flex flex-col h-full pb-12", className)}>
             <div className="sticky top-0 z-40 bg-background h-20">
@@ -30,7 +36,14 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                         Discover
                     </h2>
                     <div className="space-y-1">
-                        <Button variant="secondary" className="w-full justify-start">
+                        <Button
+                            variant="ghost"
+                            className={cn("w-full justify-start",
+                                (windowPath === '/') ? "bg-secondary" : ""
+                            )}
+                            onClick={() => router.push('/')}
+
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -46,7 +59,34 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Listen Now
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start">
+                        <Button
+                            variant="ghost"
+                            className={cn("w-full justify-start",
+                                (windowPath === '/liked') ? "bg-secondary" : ""
+                            )}
+                            onClick={() => router.push('/liked')}
+
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                className="mr-2 h-4 w-4"
+                            >
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                            </svg>
+
+                            Liked Songs
+                        </Button>
+                        <Button variant="ghost" className={cn("w-full justify-start",
+                            (windowPath === '/browse') ? "bg-secondary" : ""
+                        )}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -64,7 +104,9 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Browse
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start">
+                        <Button variant="ghost" className={cn("w-full justify-start",
+                            (windowPath === '/radio') ? "bg-secondary" : ""
+                        )}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -212,10 +254,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                     </ScrollArea>
                 </div>
             </div>
-            <div className="sticky bottom-0 bg-background py-4 mx-4 ">
 
-                <ModeToggle />
-            </div>
         </div>
     )
 }
