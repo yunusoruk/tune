@@ -19,6 +19,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/use-toast";
 import { getCurrentUser } from "@/lib/session";
+import RemoveFavoriteButton from "./remove-favorite-button";
 
 
 interface FavoriteArtworkProps {
@@ -38,29 +39,9 @@ export async function FavoriteArtwork({
     ...props
 }: FavoriteArtworkProps) {
 
-    const router = useRouter()
 
-    const unLike = async () => {
-        try {
-            const url = qs.stringifyUrl({
-                url: `/api/song/${song.id}/likedSong/${song.likedSongs[0].id}`,
-                query: {
-                    songId: song.id
-                }
-            });
-            await axios.delete(url);
-            router.refresh()
 
-            toast({
-                description: "Song removed from favorites"
-            })
-        } catch (error) {
-            toast({
-                description: "Oops, something went wrong."
-            })
-        }
 
-    }
 
     return (
         <div className={cn("space-y-3")} {...props}>
@@ -113,9 +94,10 @@ export async function FavoriteArtwork({
                     <ContextMenuItem>Play Later</ContextMenuItem>
                     <ContextMenuItem>Create Station</ContextMenuItem>
                     <ContextMenuSeparator />
-                    <ContextMenuItem onClick={() => unLike()}>
-                        Unlike
-                    </ContextMenuItem>
+                    <RemoveFavoriteButton
+                        songId={song.id}
+                        likedSongId={song.likedSongs[0].id}
+                    />
                     <ContextMenuItem>Share</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import {prismadb} from '@/lib/prismadb';
+import prismadb from '@/lib/prismadb';
 import { getCurrentUser } from '@/lib/session';
 
  
