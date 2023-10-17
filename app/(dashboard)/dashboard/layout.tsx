@@ -4,7 +4,7 @@ import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
 import { MainNav } from "@/components/main-nav"
 import { DashboardNav } from "@/components/nav"
-import { SiteFooter } from "@/components/player"
+import { SiteFooter } from "@/components/player-content"
 import { UserAccountNav } from "@/components/user-account-nav"
 
 interface DashboardLayoutProps {

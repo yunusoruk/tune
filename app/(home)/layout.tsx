@@ -4,7 +4,6 @@ import { marketingConfig } from "@/config/marketing"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
-import { Player } from "@/components/player"
 import { UserAccountNav } from "@/components/user-account-nav"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
@@ -12,6 +11,7 @@ import { Sidebar } from "@/components/sidebar"
 import { dashboardConfig } from "@/config/dashboard"
 import { ModeToggle } from "@/components/mode-toggle"
 import { User } from "@prisma/client"
+import Player from "@/components/player"
 
 
 interface MarketingLayoutProps {
@@ -46,6 +46,7 @@ export default async function MarketingLayout({
                 </div>
             </div>
             {/* <Player className="sticky bottom-0 z-40 border-t bg-background" /> */}
+            <Player />
         </div>
     )
 }

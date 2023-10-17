@@ -4,7 +4,7 @@ import { marketingConfig } from "@/config/marketing"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
-import { SiteFooter } from "@/components/player"
+import Player from "@/components/player"
 import { UserAccountNav } from "@/components/user-account-nav"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
@@ -47,7 +47,8 @@ export default async function MarketingLayout({
                     </div>
                 </div>
             </div>
-            <SiteFooter className="sticky bottom-0 z-40 border-t bg-background" />
+            {/* <SiteFooter className="sticky bottom-0 z-40 border-t bg-background" /> */}
+            <Player />
         </div>
     )
 }

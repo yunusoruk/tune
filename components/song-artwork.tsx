@@ -1,3 +1,4 @@
+"use client"
 
 import Image from "next/image"
 import qs from "query-string";
@@ -20,6 +21,8 @@ import { toast } from "@/components/ui/use-toast";
 import { getCurrentUser } from "@/lib/session";
 import AddFavoriteButton from "./add-favorite-button";
 import RemoveFavoriteButton from "./remove-favorite-button";
+import usePlayer from "@/hooks/use-player";
+import useOnPlay from "@/hooks/use-on-play";
 
 
 interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -31,7 +34,7 @@ interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: number
 }
 
-export async function SongArtwork({
+export function SongArtwork({
   song,
   aspectRatio = "portrait",
   width,
@@ -40,64 +43,24 @@ export async function SongArtwork({
   ...props
 }: SongArtworkProps) {
 
-  // const router = useRouter()
+  const player = usePlayer()
+  const onPlay = useOnPlay([song]);
 
   const isFavorite = song.likedSongs.length === 0;
 
-  // console.log(song.likedSongs);
-
-
-
-  // const onLike = async () => {
-  //   try {
-  //     const url = qs.stringifyUrl({
-  //       url: `/api/song/${song.id}/likedSong`,
-  //       query: {
-  //         songId: song.id
-  //       }
-  //     });
-  //     await axios.post(url);
-  //     router.refresh()
-  //     toast({
-  //       description: "Song added to favorites"
-  //     })
-  //   } catch (error) {
-  //     toast({
-  //       description: "Oops, something went wrong."
-  //     })
-  //   }
-  // }
-
-
-  // const unLike = async () => {
-  //   console.log(song.likedSongs[0].id);
-
-  //   try {
-  //     const url = qs.stringifyUrl({
-  //       url: `/api/song/${song.id}/likedSong/${song.likedSongs[0].id}`,
-  //       query: {
-  //         songId: song.id
-  //       }
-  //     });
-  //     await axios.delete(url);
-  //     router.refresh()
-
-  //     toast({
-  //       description: "Song removed from favorites"
-  //     })
-  //   } catch (error) {
-  //     toast({
-  //       description: "Oops, something went wrong."
-  //     })
-  //   }
-
-  // }
+  const handlePlay = () => {
+    onPlay(song.id)
+    player.setId(song.id);
+  }
 
   return (
     <div className={cn("space-y-3", className)} {...props}>
       <ContextMenu>
         <ContextMenuTrigger>
-          <div className="overflow-hidden rounded-md">
+          <div
+            className="overflow-hidden rounded-md cursor-pointer"
+            onClick={handlePlay}
+          >
             <Image
               src={song.image}
               alt={song.title}
