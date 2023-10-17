@@ -1,5 +1,7 @@
-import Image from "next/image"
+"use client"
 
+import Image from "next/image"
+import qs from "query-string";
 import { cn } from "@/lib/utils"
 import {
   ContextMenu,
@@ -11,18 +13,24 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import { Icons } from "./icons"
-import { Song } from "@prisma/client"
+import { Icons } from "@/components/icons"
+import { LikedSong, Song } from "@prisma/client"
+import axios from "axios"
+import { useRouter } from "next/navigation"
+import { toast } from "@/components/ui/use-toast";
+import { getCurrentUser } from "@/lib/session";
 
 
 interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
-  song: Song
+  song: Song & {
+    likedSongs: LikedSong[]
+  }
   aspectRatio?: "portrait" | "square"
   width?: number
   height?: number
 }
 
-export function SongArtwork({
+export async function SongArtwork({
   song,
   aspectRatio = "portrait",
   width,
@@ -30,6 +38,55 @@ export function SongArtwork({
   className,
   ...props
 }: SongArtworkProps) {
+
+  const router = useRouter()
+
+
+  const onLike = async () => {
+    try {
+      const url = qs.stringifyUrl({
+        url: `/api/song/${song.id}/likedSong`,
+        query: {
+          songId: song.id
+        }
+      });
+      await axios.post(url);
+      router.refresh()
+      toast({
+        description: "Song added to favorites"
+      })
+    } catch (error) {
+      toast({
+        description: "Oops, something went wrong."
+      })
+    }
+  }
+
+
+  const unLike = async () => {
+    console.log(song.likedSongs[0].id);
+
+    try {
+      const url = qs.stringifyUrl({
+        url: `/api/song/${song.id}/likedSong/${song.likedSongs[0].id}`,
+        query: {
+          songId: song.id
+        }
+      });
+      await axios.delete(url);
+      router.refresh()
+
+      toast({
+        description: "Song removed from favorites"
+      })
+    } catch (error) {
+      toast({
+        description: "Oops, something went wrong."
+      })
+    }
+
+  }
+
   return (
     <div className={cn("space-y-3", className)} {...props}>
       <ContextMenu>
@@ -81,7 +138,20 @@ export function SongArtwork({
           <ContextMenuItem>Play Later</ContextMenuItem>
           <ContextMenuItem>Create Station</ContextMenuItem>
           <ContextMenuSeparator />
-          <ContextMenuItem>Like</ContextMenuItem>
+          {(song.likedSongs.length === 0) ?
+            (
+              <ContextMenuItem onClick={() => onLike()}>
+                Like
+              </ContextMenuItem>
+            )
+            :
+            (
+              <ContextMenuItem onClick={() => unLike()}>
+                Unlike
+              </ContextMenuItem>
+            )
+          }
+
           <ContextMenuItem>Share</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

@@ -8,7 +8,7 @@ import { Client } from "postmark"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 import { siteConfig } from "@/config/site"
-import { prismadb } from "@/lib/prismadb"
+import  prismadb  from "@/lib/prismadb"
 
 // const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN as string)
 

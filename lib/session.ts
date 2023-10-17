@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next"
 
 import { authOptions } from "@/lib/auth"
-import { prismadb } from "./prismadb";
+import prismadb from "./prismadb";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions)
@@ -18,4 +18,10 @@ export async function getCurrentUser() {
   }
 
   return null
+}
+
+export async function getSessionUser() {
+  const session = await getServerSession(authOptions)
+
+  return session?.user
 }
