@@ -1,8 +1,8 @@
+import FavoritesClient from "@/components/clients/favorites-client";
+
 const LikedSongsPage = () => {
     return (
-        <div className="">
-            liked
-        </div>
+        <FavoritesClient />
     );
 }
 

@@ -1,4 +1,3 @@
-"use client"
 
 import Image from "next/image"
 import qs from "query-string";
@@ -19,6 +18,8 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/use-toast";
 import { getCurrentUser } from "@/lib/session";
+import AddFavoriteButton from "./add-favorite-button";
+import RemoveFavoriteButton from "./remove-favorite-button";
 
 
 interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -39,53 +40,58 @@ export async function SongArtwork({
   ...props
 }: SongArtworkProps) {
 
-  const router = useRouter()
+  // const router = useRouter()
+
+  const isFavorite = song.likedSongs.length === 0;
+
+  // console.log(song.likedSongs);
 
 
-  const onLike = async () => {
-    try {
-      const url = qs.stringifyUrl({
-        url: `/api/song/${song.id}/likedSong`,
-        query: {
-          songId: song.id
-        }
-      });
-      await axios.post(url);
-      router.refresh()
-      toast({
-        description: "Song added to favorites"
-      })
-    } catch (error) {
-      toast({
-        description: "Oops, something went wrong."
-      })
-    }
-  }
+
+  // const onLike = async () => {
+  //   try {
+  //     const url = qs.stringifyUrl({
+  //       url: `/api/song/${song.id}/likedSong`,
+  //       query: {
+  //         songId: song.id
+  //       }
+  //     });
+  //     await axios.post(url);
+  //     router.refresh()
+  //     toast({
+  //       description: "Song added to favorites"
+  //     })
+  //   } catch (error) {
+  //     toast({
+  //       description: "Oops, something went wrong."
+  //     })
+  //   }
+  // }
 
 
-  const unLike = async () => {
-    console.log(song.likedSongs[0].id);
+  // const unLike = async () => {
+  //   console.log(song.likedSongs[0].id);
 
-    try {
-      const url = qs.stringifyUrl({
-        url: `/api/song/${song.id}/likedSong/${song.likedSongs[0].id}`,
-        query: {
-          songId: song.id
-        }
-      });
-      await axios.delete(url);
-      router.refresh()
+  //   try {
+  //     const url = qs.stringifyUrl({
+  //       url: `/api/song/${song.id}/likedSong/${song.likedSongs[0].id}`,
+  //       query: {
+  //         songId: song.id
+  //       }
+  //     });
+  //     await axios.delete(url);
+  //     router.refresh()
 
-      toast({
-        description: "Song removed from favorites"
-      })
-    } catch (error) {
-      toast({
-        description: "Oops, something went wrong."
-      })
-    }
+  //     toast({
+  //       description: "Song removed from favorites"
+  //     })
+  //   } catch (error) {
+  //     toast({
+  //       description: "Oops, something went wrong."
+  //     })
+  //   }
 
-  }
+  // }
 
   return (
     <div className={cn("space-y-3", className)} {...props}>
@@ -138,17 +144,18 @@ export async function SongArtwork({
           <ContextMenuItem>Play Later</ContextMenuItem>
           <ContextMenuItem>Create Station</ContextMenuItem>
           <ContextMenuSeparator />
-          {(song.likedSongs.length === 0) ?
+          {(isFavorite) ?
             (
-              <ContextMenuItem onClick={() => onLike()}>
-                Like
-              </ContextMenuItem>
+              <AddFavoriteButton
+                songId={song.id}
+              />
             )
             :
             (
-              <ContextMenuItem onClick={() => unLike()}>
-                Unlike
-              </ContextMenuItem>
+              <RemoveFavoriteButton
+                songId={song.id}
+                likedSongId={song.likedSongs[0].id}
+              />
             )
           }
 

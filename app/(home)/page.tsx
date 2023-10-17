@@ -1,5 +1,5 @@
 import AddMusicButton from "@/components/add-music-button";
-import MusicClient from "@/components/home/music-client";
+import MusicClient from "@/components/clients/music-client";
 import { Icons } from "@/components/icons";
 import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder";
 import { SongArtwork } from "@/components/song-artwork";

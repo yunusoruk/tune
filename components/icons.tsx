@@ -17,7 +17,9 @@ import {
     LucideProps,
     Moon,
     MoreVertical,
+    Pause,
     Pizza,
+    Play,
     Plus,
     PlusCircle,
     Settings,
@@ -25,12 +27,20 @@ import {
     Trash,
     Twitter,
     User,
+    Volume1,
+    Volume2,
+    VolumeX,
     X
 
 } from "lucide-react"
 
 
 export const Icons = {
+    volumeX: VolumeX,
+    volume1: Volume1,
+    volume2: Volume2,
+    pause: Pause,
+    play: Play,
     heart: Heart,
     plusCircle: PlusCircle,
     logo: BoxSelect,

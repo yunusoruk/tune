@@ -4,7 +4,7 @@ import { marketingConfig } from "@/config/marketing"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
-import { SiteFooter } from "@/components/site-footer"
+import { Player } from "@/components/player"
 import { UserAccountNav } from "@/components/user-account-nav"
 import { getCurrentUser } from "@/lib/session"
 import { notFound } from "next/navigation"
@@ -23,8 +23,6 @@ export default async function MarketingLayout({
 }: MarketingLayoutProps) {
 
     const user = await getCurrentUser()
-
-
 
     return (
         <div className="flex flex-col min-h-screen container">
@@ -47,7 +45,7 @@ export default async function MarketingLayout({
                     </div>
                 </div>
             </div>
-            <SiteFooter className="sticky bottom-0 z-40 border-t bg-background" />
+            {/* <Player className="sticky bottom-0 z-40 border-t bg-background" /> */}
         </div>
     )
 }
