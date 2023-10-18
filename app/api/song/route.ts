@@ -58,11 +58,7 @@ export async function GET(
   req: Request
 ) {
   try {
-    const currentUser = await getCurrentUser()
-
-    if (!currentUser) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+  
 
 
     const archive = await prismadb.song.findMany({})
