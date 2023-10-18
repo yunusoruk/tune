@@ -22,7 +22,7 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [volume, setVolume] = React.useState(1);
 
-    const Icon = isPlaying ? Icons.pause : Icons.playCircle;
+    const Icon = isPlaying ? Icons.pause : Icons.play;
 
     const VolumeIcon = volume === 0 ? Icons.volumeX : volume <= 0.5 ? Icons.volume1 : Icons.volume2;
 
@@ -101,7 +101,7 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
     return (
         <footer className={cn(className)}>
             <div className="container  flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
-                <div className="">
+                <div className="w-[200px]">
                     <PlayerArtwork
                         className="flex flex-row items-center space-x-4"
                         key={song.id}

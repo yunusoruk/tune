@@ -1,4 +1,5 @@
 import AddMusicButton from "@/components/add-music-button";
+import FavoritesClient from "@/components/clients/favorites-client";
 import MusicClient from "@/components/clients/music-client";
 import { Icons } from "@/components/icons";
 import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder";
@@ -19,7 +20,11 @@ export default function Home() {
                     <TabsTrigger value="music" className="relative">
                         Music
                     </TabsTrigger>
+
                     <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
+                    <TabsTrigger value="favorites" className="relative">
+                        Favorites
+                    </TabsTrigger>
                     <TabsTrigger value="live" disabled>
                         Live
                     </TabsTrigger>
@@ -33,6 +38,12 @@ export default function Home() {
                 className="border-none p-0 outline-none"
             >
                 <MusicClient />
+            </TabsContent>
+            <TabsContent
+                value="favorites"
+                className="border-none p-0 outline-none"
+            >
+                <FavoritesClient />
             </TabsContent>
             <TabsContent
                 value="podcasts"

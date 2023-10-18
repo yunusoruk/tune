@@ -48,7 +48,7 @@ export function PlayerArtwork({
 
 
     return (
-        <div className={cn("space-y-3", className)} {...props}>
+        <div className={cn("space-y-3 overflow-hidden", className)} {...props}>
             <ContextMenu>
                 <ContextMenuTrigger>
                     <div

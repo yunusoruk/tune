@@ -6,6 +6,7 @@ import prismadb from "@/lib/prismadb";
 import PlayerSong from "./player-song";
 import { useEffect, useState } from "react";
 import { Song } from "@prisma/client";
+import PlayerEmptyPlaceholder from "./player-empty-placeholder";
 
 
 const Player = () => {
@@ -33,7 +34,11 @@ const Player = () => {
 
 
     if (!song || !player.activeId) {
-        return null;
+        console.log('gere');
+
+        return (
+            <PlayerEmptyPlaceholder className="sticky bottom-0 z-40 border-t bg-background" />
+        );
     }
 
     return (

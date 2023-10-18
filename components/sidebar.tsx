@@ -59,7 +59,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Listen Now
                         </Button>
-                        <Button
+                        {/* <Button
                             variant="ghost"
                             className={cn("w-full justify-start",
                                 (windowPath === '/liked') ? "bg-secondary" : ""
@@ -83,7 +83,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
 
                             Liked Songs
-                        </Button>
+                        </Button> */}
                         <Button variant="ghost" className={cn("w-full justify-start",
                             (windowPath === '/browse') ? "bg-secondary" : ""
                         )}>
@@ -104,7 +104,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Browse
                         </Button>
-                        <Button variant="ghost" className={cn("w-full justify-start",
+                        <Button disabled variant="ghost" className={cn("w-full justify-start",
                             (windowPath === '/radio') ? "bg-secondary" : ""
                         )}>
                             <svg
@@ -132,7 +132,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                         Library
                     </h2>
                     <div className="space-y-1">
-                        <Button variant="ghost" className="w-full justify-start">
+                        <Button disabled variant="ghost" className="w-full justify-start">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -151,7 +151,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Playlists
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start">
+                        <Button disabled variant="ghost" className="w-full justify-start">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -167,7 +167,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Songs
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start">
+                        <Button disabled variant="ghost" className="w-full justify-start">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -183,7 +183,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Made for You
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start">
+                        <Button disabled variant="ghost" className="w-full justify-start">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -199,7 +199,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Artists
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start">
+                        <Button disabled variant="ghost" className="w-full justify-start">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"

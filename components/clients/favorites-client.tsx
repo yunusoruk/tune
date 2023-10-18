@@ -25,9 +25,6 @@ const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
         }
     })
 
-    console.log(favorites);
-
-
     return (
         <div className="relative">
             <div className="flex items-center justify-between">
@@ -42,7 +39,7 @@ const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
             </div>
             <Separator className="my-4" />
             {
-                favorites.length === 0 ?
+                favorites && favorites.length === 0 ?
                     (
                         <FavoritesEmptyPlaceholder />
                     )
