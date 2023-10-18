@@ -20,9 +20,12 @@ import {
     Pause,
     Pizza,
     Play,
+    PlayCircle,
     Plus,
     PlusCircle,
     Settings,
+    SkipBack,
+    SkipForward,
     SunMedium,
     Trash,
     Twitter,
@@ -36,10 +39,13 @@ import {
 
 
 export const Icons = {
+    skipForward: SkipForward,
+    skipBack: SkipBack,
     volumeX: VolumeX,
     volume1: Volume1,
     volume2: Volume2,
     pause: Pause,
+    playCircle: PlayCircle,
     play: Play,
     heart: Heart,
     plusCircle: PlusCircle,

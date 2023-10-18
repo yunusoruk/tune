@@ -10,11 +10,10 @@ import { Song } from "@prisma/client";
 
 const Player = () => {
     const [song, setSong] = useState<Song | undefined>(undefined);
+    // const [archive, setArchive] = useState<Song[] | undefined>([]);
+
     const player = usePlayer();
 
-    // if (!player.activeId) {
-    //     return null
-    // }
 
     useEffect(() => {
         if (player.activeId) {
@@ -24,6 +23,13 @@ const Player = () => {
                 .catch(error => console.error('Error fetching song:', error));
         }
     }, [player.activeId])
+
+    // useEffect(() => {
+    //     fetch(`/api/song`)
+    //         .then(response => response.json())
+    //         .then(data => setArchive(data))
+    //         .catch(error => console.error('Error fetching song:', error));
+    // }, [])
 
 
     if (!song || !player.activeId) {

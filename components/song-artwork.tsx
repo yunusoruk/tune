@@ -29,6 +29,7 @@ interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   song: Song & {
     likedSongs: LikedSong[]
   }
+  archive: Song[]
   aspectRatio?: "portrait" | "square"
   width?: number
   height?: number
@@ -36,6 +37,7 @@ interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function SongArtwork({
   song,
+  archive,
   aspectRatio = "portrait",
   width,
   height,
@@ -44,9 +46,14 @@ export function SongArtwork({
 }: SongArtworkProps) {
 
   const player = usePlayer()
-  const onPlay = useOnPlay([song]);
+  const onPlay = useOnPlay(archive);
+  let isFavorite;
 
-  const isFavorite = song.likedSongs.length === 0;
+  if (song.likedSongs) {
+    isFavorite = song.likedSongs.length === 0;
+
+  }
+  // const isFavorite = song.likedSongs.length === 0;
 
   const handlePlay = () => {
     onPlay(song.id)
@@ -75,8 +82,8 @@ export function SongArtwork({
         </ContextMenuTrigger>
         <ContextMenuContent className="w-40">
           <ContextMenuItem>Add to Library</ContextMenuItem>
-          <ContextMenuSub>
-            <ContextMenuSubTrigger>Add to Playlist</ContextMenuSubTrigger>
+          <ContextMenuSub >
+            <ContextMenuSubTrigger >Add to Playlist</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-48">
               <ContextMenuItem>
                 <Icons.plusCircle className="mr-2 h-4 w-4" />
@@ -103,9 +110,9 @@ export function SongArtwork({
             </ContextMenuSubContent>
           </ContextMenuSub>
           <ContextMenuSeparator />
-          <ContextMenuItem>Play Next</ContextMenuItem>
-          <ContextMenuItem>Play Later</ContextMenuItem>
-          <ContextMenuItem>Create Station</ContextMenuItem>
+          <ContextMenuItem onClick={() => player.playNext(song.id)}>Play Next</ContextMenuItem>
+          <ContextMenuItem onClick={() => player.addToQueue(song.id)} >Add the queue</ContextMenuItem>
+          <ContextMenuItem disabled >Create Station</ContextMenuItem>
           <ContextMenuSeparator />
           {(isFavorite) ?
             (
@@ -117,12 +124,12 @@ export function SongArtwork({
             (
               <RemoveFavoriteButton
                 songId={song.id}
-                likedSongId={song.likedSongs[0].id}
+                likedSongId={(song.likedSongs) ? song.likedSongs[0].id : ""}
               />
             )
           }
 
-          <ContextMenuItem>Share</ContextMenuItem>
+          <ContextMenuItem disabled>Share</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
       <div className="space-y-1 text-sm">

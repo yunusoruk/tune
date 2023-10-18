@@ -53,3 +53,24 @@ export async function POST(
     return new NextResponse("Internal error", { status: 500 });
   }
 };
+
+export async function GET(
+  req: Request
+) {
+  try {
+    const currentUser = await getCurrentUser()
+
+    if (!currentUser) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+
+    const archive = await prismadb.song.findMany({})
+    
+  
+    return NextResponse.json(archive);
+  } catch (error) {
+    console.log('[SONG_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+};

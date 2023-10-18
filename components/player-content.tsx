@@ -3,13 +3,13 @@
 import * as React from "react"
 // @ts-ignore
 import useSound from "use-sound";
-import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Command as Logo } from "lucide-react"
-import { ModeToggle } from "@/components/mode-toggle"
 import { Icons } from "./icons"
 import { Song } from "@prisma/client"
 import usePlayer from "@/hooks/use-player"
+import SlideBar from "./slideBar";
+import { PlayerArtwork } from "./player-artwork";
+import useOnPlay from "@/hooks/use-on-play";
 
 interface PlayerContentProps extends React.HTMLAttributes<HTMLElement> {
     song: Song
@@ -18,12 +18,15 @@ interface PlayerContentProps extends React.HTMLAttributes<HTMLElement> {
 export function PlayerContent({ song, className }: PlayerContentProps) {
     const player = usePlayer();
 
+
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [volume, setVolume] = React.useState(1);
 
-    const Icon = isPlaying ? Icons.pause : Icons.play;
+    const Icon = isPlaying ? Icons.pause : Icons.playCircle;
 
-    const VolumeIcon = volume === 0 ? Icons.volumeX : Icons.volume1;
+    const VolumeIcon = volume === 0 ? Icons.volumeX : volume <= 0.5 ? Icons.volume1 : Icons.volume2;
+
+
 
     const onPlayNext = () => {
         if (player.ids.length === 0) {
@@ -99,14 +102,36 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
         <footer className={cn(className)}>
             <div className="container  flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
                 <div className="">
+                    <PlayerArtwork
+                        className="flex flex-row items-center space-x-4"
+                        key={song.id}
+                        song={song as any}
+                        aspectRatio="portrait"
+                        width={50}
+                        height={50}
+                    />
                 </div>
-                <div className="">
-                    <Icon className="cursor-pointer" onClick={handlePlay} />
+                <div className="flex flex-row gap-x-4">
+                    <Icons.skipBack
+                        className="cursor-pointer"
+                        onClick={onPlayPrevious}
+                    />
+                    <Icon
+                        className="cursor-pointer"
+                        onClick={handlePlay} />
+                    <Icons.skipForward
+                        className="cursor-pointer"
+                        onClick={onPlayNext}
+                    />
                 </div>
-                <div className="">
+                <div className="flex flex-row items-center gap-x-2 w-[120px]">
                     <VolumeIcon
                         className="cursor-pointer"
                         onClick={toggleMute}
+                    />
+                    <SlideBar
+                        value={volume}
+                        onChange={(value) => setVolume(value)}
                     />
 
                 </div>

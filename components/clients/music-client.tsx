@@ -39,6 +39,7 @@ const MusicClient = async () => {
                             <SongArtwork
                                 key={song.id}
                                 song={song}
+                                archive={songs}
                                 className="w-[250px]"
                                 aspectRatio="portrait"
                                 width={250}
@@ -65,6 +66,7 @@ const MusicClient = async () => {
                             <SongArtwork
                                 key={song.id}
                                 song={song}
+                                archive={songs}
                                 className="w-[150px]"
                                 aspectRatio="square"
                                 width={150}
