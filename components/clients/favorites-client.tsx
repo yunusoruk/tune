@@ -25,6 +25,16 @@ const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
         }
     })
 
+    const songs = await prismadb.song.findMany({
+        include: {
+            likedSongs: {
+                where: {
+                    userId: currentUser?.id
+                }
+            }
+        }
+    })
+
     return (
         <div className="relative">
             <div className="flex items-center justify-between">
@@ -49,20 +59,12 @@ const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
                     )
             }
             <div className="flex space-x-4 pb-4">
-                {/* {favorites.map((favorite) => (
+                {favorites.map((favorite) => (
                     <SongArtwork
+                        archive={songs}
                         key={favorite.songId}
                         song={favorite.song as any}
                         className="w-[150px]"
-                        aspectRatio="square"
-                        width={150}
-                        height={150}
-                    />
-                ))} */}
-                {favorites.map((favorite) => (
-                    <FavoriteArtwork
-                        key={favorite.songId}
-                        song={favorite.song as any}
                         aspectRatio="square"
                         width={150}
                         height={150}
