@@ -39,6 +39,7 @@ import {
 
 
 export const Icons = {
+    plus: Plus,
     skipForward: SkipForward,
     skipBack: SkipBack,
     volumeX: VolumeX,

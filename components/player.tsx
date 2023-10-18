@@ -11,7 +11,6 @@ import PlayerEmptyPlaceholder from "./player-empty-placeholder";
 
 const Player = () => {
     const [song, setSong] = useState<Song | undefined>(undefined);
-    // const [archive, setArchive] = useState<Song[] | undefined>([]);
 
     const player = usePlayer();
 
@@ -24,6 +23,8 @@ const Player = () => {
                 .catch(error => console.error('Error fetching song:', error));
         }
     }, [player.activeId])
+
+    // const [archive, setArchive] = useState<Song[] | undefined>([]);
 
     // useEffect(() => {
     //     fetch(`/api/song`)

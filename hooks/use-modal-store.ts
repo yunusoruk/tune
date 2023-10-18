@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "loginModal" | "registerModal" | "addMusicModal"
+export type ModalType = "loginModal" | "registerModal" | "addMusicModal" | "addPlaylistModal"
 
 interface ModalStore {
   type: ModalType | null;

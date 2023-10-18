@@ -8,17 +8,31 @@ import { siteConfig } from "@/config/site"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useWindowPath } from "@/hooks/use-window-path"
+import { Playlist } from "@prisma/client"
+import { useEffect, useState } from "react"
+import { Icons } from "./icons"
+import { useModal } from "@/hooks/use-modal-store"
 
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-    //   playlists: Playlist[]
-    playlists: []
+    playlists: Playlist[]
 }
 
 export function Sidebar({ className, playlists }: SidebarProps) {
 
     const router = useRouter()
     const windowPath = useWindowPath()
+    const { onOpen } = useModal()
+
+    const [archive, setArchive] = useState<Playlist[] | undefined>([]);
+
+    useEffect(() => {
+        fetch(`/api/playlist`)
+            .then(response => response.json())
+            .then(data => setArchive(data))
+            .catch(error => console.error('Error fetching song:', error));
+    }, [])
+
 
     return (
         <div className={cn("flex flex-col h-full w-full pb-12", className)}>
@@ -60,32 +74,8 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                             </svg>
                             Listen Now
                         </Button>
-                        {/* <Button
-                            variant="ghost"
-                            className={cn("w-full justify-start",
-                                (windowPath === '/liked') ? "bg-secondary" : ""
-                            )}
-                            onClick={() => router.push('/liked')}
 
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                className="mr-2 h-4 w-4"
-                            >
-                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                            </svg>
-
-                            Liked Songs
-                        </Button> */}
-                        <Button variant="ghost" className={cn("w-full justify-start",
+                        <Button disabled variant="ghost" className={cn("w-full justify-start",
                             (windowPath === '/browse') ? "bg-secondary" : ""
                         )}>
                             <svg
@@ -221,38 +211,45 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                     </div>
                 </div>
                 <div className="py-2">
-                    <h2 className="relative px-7 text-lg font-semibold tracking-tight">
-                        Playlists
-                    </h2>
-                    {/* <ScrollArea className="h-[300px] px-1">
-                            <div className="space-y-1 p-2">
-                                {playlists?.map((playlist, i) => (
-                                    <Button
-                                        key={`${playlist}-${i}`}
-                                        variant="ghost"
-                                        className="w-full justify-start font-normal"
+                    <div className="flex flex-row justify-between items-center ">
+                        <h2 className="relative px-7 text-lg font-semibold tracking-tight">
+                            Playlists
+                        </h2>
+                        <Icons.add
+                            size={28}
+                            className="mr-4 cursor-pointer hover:bg-secondary p-1 rounded-md"
+                            onClick={() => onOpen('addPlaylistModal')}
+                        />
+                    </div>
+                    <ScrollArea className="h-[300px] px-1">
+                        <div className="space-y-1 p-2">
+                            {archive?.map((playlist, i) => (
+                                <Button
+                                    key={`${playlist}-${i}`}
+                                    variant="ghost"
+                                    className="w-full justify-start font-normal"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="mr-2 h-4 w-4"
                                     >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            className="mr-2 h-4 w-4"
-                                        >
-                                            <path d="M21 15V6" />
-                                            <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                                            <path d="M12 12H3" />
-                                            <path d="M16 6H3" />
-                                            <path d="M12 18H3" />
-                                        </svg>
-                                        {playlist}
-                                    </Button>
-                                ))}
-                            </div>
-                        </ScrollArea> */}
+                                        <path d="M21 15V6" />
+                                        <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                                        <path d="M12 12H3" />
+                                        <path d="M16 6H3" />
+                                        <path d="M12 18H3" />
+                                    </svg>
+                                    {playlist.title}
+                                </Button>
+                            ))}
+                        </div>
+                    </ScrollArea>
                 </div>
             </ScrollArea>
         </div>

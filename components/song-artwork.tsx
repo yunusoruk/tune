@@ -23,6 +23,7 @@ import AddFavoriteButton from "./add-favorite-button";
 import RemoveFavoriteButton from "./remove-favorite-button";
 import usePlayer from "@/hooks/use-player";
 import useOnPlay from "@/hooks/use-on-play";
+import { useModal } from "@/hooks/use-modal-store";
 
 
 interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -46,6 +47,7 @@ export function SongArtwork({
 }: SongArtworkProps) {
 
   const player = usePlayer()
+  const { onOpen } = useModal()
   const onPlay = useOnPlay(archive);
   let isFavorite;
 
@@ -53,7 +55,6 @@ export function SongArtwork({
     isFavorite = song.likedSongs.length === 0;
 
   }
-  // const isFavorite = song.likedSongs.length === 0;
 
   const handlePlay = () => {
     onPlay(song.id)
@@ -85,7 +86,7 @@ export function SongArtwork({
           <ContextMenuSub >
             <ContextMenuSubTrigger >Add to Playlist</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-48">
-              <ContextMenuItem>
+              <ContextMenuItem onClick={() => onOpen('addPlaylistModal')}>
                 <Icons.plusCircle className="mr-2 h-4 w-4" />
                 New Playlist
               </ContextMenuItem>

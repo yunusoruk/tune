@@ -55,6 +55,7 @@ model User {
   updatedAt      DateTime    @default(now()) @map(name: "updated_at")
   likedSongs     LikedSong[]
   songs          Song[]
+  playlists      Playlist[]
 
   accounts Account[]
   sessions Session[]
@@ -87,6 +88,7 @@ model Song {
   createdAt  DateTime    @default(now()) @map(name: "created_at")
   updatedAt  DateTime    @default(now()) @map(name: "updated_at")
   likedSongs LikedSong[]
+  playlists  Playlist[]
 
   @@index([userId])
   @@map(name: "songs")
@@ -104,4 +106,19 @@ model LikedSong {
   @@index([userId])
   @@index([songId])
   @@map("liked_songs")
+}
+
+model Playlist {
+  id     String @id @default(cuid())
+  title  String
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  image  String
+  songs  Song[]
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  @@index([userId])
+  @@map("playlists")
 }
