@@ -28,9 +28,10 @@ export default async function MarketingLayout({
     return (
         <div className="flex flex-col min-h-screen container">
             <div className="flex-1 bg-background">
-                <div className="grid lg:grid-cols-5"><div className="">
-                    <Sidebar playlists={[]} className="hidden lg:block " />
-                </div>
+                <div className="grid lg:grid-cols-5">
+                    <div className="">
+                        <Sidebar playlists={[]} className="hidden lg:block " />
+                    </div>
                     <div className="col-span-3 lg:col-span-4 lg:border-l">
                         <div className="h-full">
                             <header className="sticky top-0 z-40 border-b bg-background mb-4 px-3">
@@ -41,18 +42,11 @@ export default async function MarketingLayout({
                             <main className="flex-1 px-8">
                                 {children}
                             </main>
-                            <Player className="lg:hidden" />
-
-
                         </div>
                     </div>
-
+                    <Player className="col-span-5" />
                 </div>
-
             </div>
-
-            <Player className="hidden lg:block" />
-            {/* <Player className="sticky bottom-0 z-40 border-t bg-background" /> */}
         </div>
     )
 }
