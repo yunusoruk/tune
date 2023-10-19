@@ -96,6 +96,7 @@ export function SongArtwork({
               <ContextMenuSeparator />
               {playlists && playlists.map((playlist) => (
                 <AddToPlaylistButton
+                  key={playlist.id}
                   songId={song.id}
                   playlist={playlist}
                 />
