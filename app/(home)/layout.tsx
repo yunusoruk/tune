@@ -12,6 +12,7 @@ import { dashboardConfig } from "@/config/dashboard"
 import { ModeToggle } from "@/components/mode-toggle"
 import { User } from "@prisma/client"
 import Player from "@/components/player"
+import { SiteFooter } from "@/components/site-footer"
 
 
 interface MarketingLayoutProps {
@@ -43,10 +44,14 @@ export default async function MarketingLayout({
 
                         </div>
                     </div>
+
                 </div>
+
             </div>
-            {/* <Player className="sticky bottom-0 z-40 border-t bg-background" /> */}
+            {/* <SiteFooter className="bg-white" /> */}
+
             <Player />
+            {/* <Player className="sticky bottom-0 z-40 border-t bg-background" /> */}
         </div>
     )
 }

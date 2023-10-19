@@ -47,7 +47,7 @@ export default function Home() {
             </TabsContent>
             <TabsContent
                 value="podcasts"
-                className="h-full flex-col border-none p-0 data-[state=active]:flex"
+                className="h-full flex-col border-none p-0 "
             >
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">

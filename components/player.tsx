@@ -43,7 +43,7 @@ const Player = () => {
     }
 
     return (
-        <PlayerContent className="sticky bottom-0 z-40 border-t bg-background" song={song} />
+        <PlayerContent className="flex-1 sticky bottom-0 z-40 border-t bg-background" song={song} />
 
     );
 }

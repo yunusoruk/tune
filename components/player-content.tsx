@@ -100,7 +100,7 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
 
     return (
         <footer className={cn(className)}>
-            <div className="container  flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+            <div className="container  flex flex-row items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
                 <div className="w-[200px]">
                     <PlayerArtwork
                         className="flex flex-row items-center space-x-4"
@@ -113,18 +113,18 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
                 </div>
                 <div className="flex flex-row gap-x-4">
                     <Icons.skipBack
-                        className="cursor-pointer"
+                        className="cursor-pointer "
                         onClick={onPlayPrevious}
                     />
                     <Icon
                         className="cursor-pointer"
                         onClick={handlePlay} />
                     <Icons.skipForward
-                        className="cursor-pointer"
+                        className="cursor-pointer "
                         onClick={onPlayNext}
                     />
                 </div>
-                <div className="flex flex-row items-center gap-x-2 w-[120px]">
+                <div className="md:flex flex-row items-center gap-x-2 w-[120px] hidden ">
                     <VolumeIcon
                         className="cursor-pointer"
                         onClick={toggleMute}

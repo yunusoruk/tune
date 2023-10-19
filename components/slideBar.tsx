@@ -1,15 +1,18 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import * as RadixSlider from "@radix-ui/react-slider"
 
 interface SlideProps {
   value?: number;
   onChange?: (value: number) => void;
+  className?: string
 }
 
 const SlideBar: React.FC<SlideProps> = ({
   value = 1,
-  onChange
+  onChange,
+  className
 }) => {
   const handleChange = (newValue: number[]) => {
     onChange?.(newValue[0]);
@@ -17,15 +20,7 @@ const SlideBar: React.FC<SlideProps> = ({
 
   return (
     <RadixSlider.Root
-      className="
-        relative 
-        flex 
-        items-center 
-        select-none 
-        touch-none 
-        w-full 
-        h-10
-      "
+      className={cn("relative flex items-center select-none touch-none w-full h-10", className)}
       defaultValue={[1]}
       value={[value]}
       onValueChange={handleChange}
