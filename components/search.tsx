@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import usePlayer from "@/hooks/use-player";
 
-interface ServerSearchProps {
+interface ServerSearchProps extends React.HTMLAttributes<HTMLElement> {
     data: {
         label: string;
         type: "song" | "playlist",
@@ -30,7 +30,8 @@ interface ServerSearchProps {
 }
 
 export const SearchBar = ({
-    data
+    data,
+    className
 }: ServerSearchProps) => {
     const [open, setOpen] = useState(false);
     const router = useRouter();
@@ -87,7 +88,8 @@ export const SearchBar = ({
             <Button
                 variant="outline"
                 className={cn(
-                    "relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+                    "relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64",
+                    className
                 )}
                 onClick={() => setOpen(true)}
             >

@@ -15,6 +15,7 @@ import {
     Laptop,
     Loader2,
     LucideProps,
+    Menu,
     Moon,
     MoreVertical,
     Pause,
@@ -39,6 +40,7 @@ import {
 
 
 export const Icons = {
+    menu: Menu,
     plus: Plus,
     skipForward: SkipForward,
     skipBack: SkipBack,

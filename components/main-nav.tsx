@@ -15,6 +15,7 @@ import { useModal } from "@/hooks/use-modal-store"
 import { Playlist, Song, User } from "@prisma/client"
 import { ModeToggle } from "./mode-toggle"
 import { SearchBar } from "./search"
+import { Icons } from "./icons"
 
 interface MainNavProps {
     user: User
@@ -49,11 +50,38 @@ export function MainNav({ user, items, children }: MainNavProps) {
 
     return (
         <>
-            <div className="flex flex-row items-center">
+            <div className="lg:flex lg:flex-row items-center hidden">
                 <ModeToggle />
             </div>
+            <div className=" lg:hidden">
+                <Icons.menu />
+            </div>
+            {/* <SearchBar
+                className="md:hidden mx-8"
+                data={[
+                    {
+                        label: "Songs",
+                        type: "song",
+                        data: archive?.map((song) => ({
+                            id: song.id,
+                            title: song.title,
+                            image: song.image,
+                        }))
+                    },
+                    {
+                        label: "Playlists",
+                        type: "playlist",
+                        data: playlists?.map((playlist) => ({
+                            id: playlist.id,
+                            title: playlist.title,
+                            image: playlist.image,
+                        }))
+                    }
+                ]}
+            /> */}
             <div className="flex flex-row items-center space-x-4">
                 <SearchBar
+                    className=""
                     data={[
                         {
                             label: "Songs",

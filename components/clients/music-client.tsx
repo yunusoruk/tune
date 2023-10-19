@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import prismadb from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
+import { SongArtworkMobile } from "../song-artwork-mobile";
 
 const MusicClient = async () => {
 
@@ -60,23 +61,21 @@ const MusicClient = async () => {
                     <ScrollBar orientation="horizontal" />
                 </ScrollArea>
             </div>
-            {/* <div className="lg:hidden">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {songs.map((song) => (
-                        <SongArtwork
-                            playlists={playlists}
-                            key={song.id}
-                            song={song}
-                            archive={songs}
-                            className="w-[250px]"
-                            aspectRatio="portrait"
-                            width={250}
-                            height={330}
-                        />
-                    ))}
-                </div>
-            </div> */}
-            <div className="mt-6 space-y-1">
+            <div className=" lg:hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 py-4">
+                {songs.map((song) => (
+                    <SongArtworkMobile
+                        playlists={playlists}
+                        key={song.id}
+                        song={song}
+                        archive={songs}
+                        className="w-[250px]"
+                        aspectRatio="portrait"
+                        width={250}
+                        height={330}
+                    />
+                ))}
+            </div>
+            <div className="mt-6 space-y-1 hidden lg:block">
                 <h2 className="text-2xl font-semibold tracking-tight">
                     Made for You
                 </h2>
