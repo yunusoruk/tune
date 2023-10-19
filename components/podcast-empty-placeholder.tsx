@@ -54,7 +54,7 @@ export function PodcastEmptyPlaceholder() {
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button>Import Podcast</Button>
+                            <Button disabled>Import Podcast</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>

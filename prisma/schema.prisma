@@ -85,6 +85,7 @@ model Song {
   author     String
   song       String
   image      String
+  approved   Boolean     @default(false)
   createdAt  DateTime    @default(now()) @map(name: "created_at")
   updatedAt  DateTime    @default(now()) @map(name: "updated_at")
   likedSongs LikedSong[]

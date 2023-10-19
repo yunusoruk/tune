@@ -27,12 +27,11 @@ const PlayerEmptyPlaceholder: FC<PlayerContentProps> = ({ className }) => {
                         className="cursor-pointer text-muted-foreground"
                     />
                 </div>
-                <div className="flex flex-row items-center gap-x-2 w-[120px]">
+                <div className="hidden md:flex md:flex-row items-center gap-x-2 w-[120px]">
                     <Icons.volume1
                         className="cursor-pointer text-muted-foreground"
                     />
                     <SlideBar
-
                         value={1}
                         onChange={() => { }}
                     />

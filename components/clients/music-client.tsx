@@ -10,6 +10,9 @@ const MusicClient = async () => {
     const currentUser = await getCurrentUser()
 
     const songs = await prismadb.song.findMany({
+        where: {
+            approved: true
+        },
         include: {
             likedSongs: {
                 where: {
@@ -38,8 +41,8 @@ const MusicClient = async () => {
                 </div>
             </div>
             <Separator className="my-4" />
-            <div className="relative">
-                <ScrollArea>
+            <div className="relative hidden lg:block">
+                <ScrollArea className="">
                     <div className="flex space-x-4 pb-4">
                         {songs.map((song) => (
                             <SongArtwork
@@ -57,6 +60,22 @@ const MusicClient = async () => {
                     <ScrollBar orientation="horizontal" />
                 </ScrollArea>
             </div>
+            {/* <div className="lg:hidden">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {songs.map((song) => (
+                        <SongArtwork
+                            playlists={playlists}
+                            key={song.id}
+                            song={song}
+                            archive={songs}
+                            className="w-[250px]"
+                            aspectRatio="portrait"
+                            width={250}
+                            height={330}
+                        />
+                    ))}
+                </div>
+            </div> */}
             <div className="mt-6 space-y-1">
                 <h2 className="text-2xl font-semibold tracking-tight">
                     Made for You
@@ -66,7 +85,7 @@ const MusicClient = async () => {
                 </p>
             </div>
             <Separator className="my-4" />
-            <div className="relative">
+            <div className="relative hidden lg:block">
                 <ScrollArea>
                     <div className="flex space-x-4 pb-4">
                         {songs.map((song) => (
