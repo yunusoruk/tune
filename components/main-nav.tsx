@@ -49,7 +49,8 @@ export function MainNav({ user, items, children }: MainNavProps) {
 
     return (
         <>
-            <div className="">
+            <div className="flex flex-row items-center">
+                <ModeToggle />
             </div>
             <div className="flex flex-row items-center space-x-4">
                 <SearchBar
