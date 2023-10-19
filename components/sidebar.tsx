@@ -12,6 +12,7 @@ import { Playlist } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { Icons } from "./icons"
 import { useModal } from "@/hooks/use-modal-store"
+import { ModeToggle } from "./mode-toggle"
 
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -252,6 +253,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                     </ScrollArea>
                 </div>
             </ScrollArea>
+
         </div>
 
         // </div>

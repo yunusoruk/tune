@@ -19,6 +19,12 @@ const MusicClient = async () => {
         }
     })
 
+    const playlists = await prismadb.playlist.findMany({
+        where: {
+            userId: currentUser?.id
+        }
+    })
+
     return (
         <>
             <div className="flex items-center justify-between">
@@ -37,6 +43,7 @@ const MusicClient = async () => {
                     <div className="flex space-x-4 pb-4">
                         {songs.map((song) => (
                             <SongArtwork
+                                playlists={playlists}
                                 key={song.id}
                                 song={song}
                                 archive={songs}

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb';
 import { getCurrentUser } from '@/lib/session';
+import { Song } from '@prisma/client';
 
 
 export async function PATCH(
@@ -24,20 +25,39 @@ export async function PATCH(
         if (!playlistId || params.playlistId !== playlistId) {
             return new NextResponse("Unauthorized", { status: 400 });
         }
+
+        if (!songId) {
+            return new NextResponse("songId needed.", { status: 400 });
+        }
+
+        const playlist = await prismadb.playlist.findUnique({
+            where: {
+                id: params.playlistId
+            },
+            include: {
+                songs: true
+            }
+        })
+
+        if (!playlist) {
+            return new NextResponse("Unauthorized", { status: 400 });
+        }
       
         // // TODO: CONNECT TO THE SONGS ARRAY
-        const playlist = await prismadb.playlist.updateMany({
+        const updatedPlaylist = await prismadb.playlist.update({
             where: {
                 id: params.playlistId
             },
             data: {
-                // songs: {
-                //     connect: 
-                // }
+                songs: {
+                    connect: {
+                        id: songId
+                    }
+                }
             }
           })
     
-      return NextResponse.json(playlist);
+      return NextResponse.json(updatedPlaylist);
     } catch (error) {
       console.log('[PLAYLIST_PATCH]', error);
       return new NextResponse("Internal error", { status: 500 });

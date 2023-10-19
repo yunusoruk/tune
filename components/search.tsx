@@ -61,9 +61,9 @@ export const SearchBar = ({
             return player.setId(id)
         }
 
-        // if (type === "playlist") {
-        //     return router.push(`/servers/${params?.serverId}/channels/${id}`)
-        // }
+        if (type === "playlist") {
+            // return player.setIds([playlist])
+        }
     }
 
     return (

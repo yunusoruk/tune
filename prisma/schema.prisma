@@ -80,7 +80,7 @@ model VerificationToken {
 model Song {
   id         String      @id @default(cuid())
   userId     String
-  user       User        @relation(fields: [userId], references: [id])
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   title      String
   author     String
   song       String
@@ -109,13 +109,12 @@ model LikedSong {
 }
 
 model Playlist {
-  id     String @id @default(cuid())
-  title  String
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  image  String
-  songs  Song[]
-
+  id        String   @id @default(cuid())
+  title     String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  image     String
+  songs     Song[]
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
 
