@@ -41,6 +41,8 @@ export default async function MarketingLayout({
                             <main className="flex-1 px-8">
                                 {children}
                             </main>
+                            <Player className="lg:hidden" />
+
 
                         </div>
                     </div>
@@ -48,9 +50,8 @@ export default async function MarketingLayout({
                 </div>
 
             </div>
-            {/* <SiteFooter className="bg-white" /> */}
 
-            <Player />
+            <Player className="hidden lg:block" />
             {/* <Player className="sticky bottom-0 z-40 border-t bg-background" /> */}
         </div>
     )

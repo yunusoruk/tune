@@ -14,55 +14,57 @@ export default function Home() {
 
 
     return (
-        <Tabs defaultValue="music" className="h-full space-y-6">
-            <div className="space-between flex items-center">
-                <TabsList>
-                    <TabsTrigger value="music" className="relative">
-                        Music
-                    </TabsTrigger>
+        <div className="container">
+            <Tabs defaultValue="music" className="h-full space-y-6">
+                <div className="space-between flex items-center">
+                    <TabsList>
+                        <TabsTrigger value="music" className="relative">
+                            Music
+                        </TabsTrigger>
 
-                    <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
-                    <TabsTrigger value="favorites" className="relative">
-                        Favorites
-                    </TabsTrigger>
-                    <TabsTrigger value="live" disabled>
-                        Live
-                    </TabsTrigger>
-                </TabsList>
-                <div className="ml-auto mr-4">
-                    <AddMusicButton />
-                </div>
-            </div>
-            <TabsContent
-                value="music"
-                className="border-none p-0 outline-none"
-            >
-                <MusicClient />
-            </TabsContent>
-            <TabsContent
-                value="favorites"
-                className="border-none p-0 outline-none"
-            >
-                <FavoritesClient />
-            </TabsContent>
-            <TabsContent
-                value="podcasts"
-                className="h-full flex-col border-none p-0 "
-            >
-                <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                        <h2 className="text-2xl font-semibold tracking-tight">
-                            New Episodes
-                        </h2>
-                        <p className="text-sm text-muted-foreground">
-                            Your favorite podcasts. Updated daily.
-                        </p>
+                        <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
+                        <TabsTrigger value="favorites" className="relative">
+                            Favorites
+                        </TabsTrigger>
+                        <TabsTrigger value="live" disabled>
+                            Live
+                        </TabsTrigger>
+                    </TabsList>
+                    <div className="ml-auto mr-4">
+                        <AddMusicButton />
                     </div>
                 </div>
-                <Separator className="my-4" />
-                <PodcastEmptyPlaceholder />
-            </TabsContent>
-        </Tabs>
+                <TabsContent
+                    value="music"
+                    className="border-none p-0 outline-none"
+                >
+                    <MusicClient />
+                </TabsContent>
+                <TabsContent
+                    value="favorites"
+                    className="border-none p-0 outline-none"
+                >
+                    <FavoritesClient />
+                </TabsContent>
+                <TabsContent
+                    value="podcasts"
+                    className="h-full flex-col border-none p-0 "
+                >
+                    <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                            <h2 className="text-2xl font-semibold tracking-tight">
+                                New Episodes
+                            </h2>
+                            <p className="text-sm text-muted-foreground">
+                                Your favorite podcasts. Updated daily.
+                            </p>
+                        </div>
+                    </div>
+                    <Separator className="my-4" />
+                    <PodcastEmptyPlaceholder />
+                </TabsContent>
+            </Tabs>
+        </div>
     )
 }
 
