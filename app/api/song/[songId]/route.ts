@@ -10,17 +10,11 @@ export async function GET(
     try {
   
         const currentUser = await getCurrentUser()
-        // const { searchParams } = new URL(req.url);
-    
-        // const songId = searchParams.get('songId')
+
 
         if (!currentUser) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
-      
-        // if (!songId || params.songId !== songId) {
-        //     return new NextResponse("Unauthorized", { status: 400 });
-        // }
       
         const song = await prismadb.song.findUnique({
             where: {

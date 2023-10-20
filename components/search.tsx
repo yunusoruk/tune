@@ -65,14 +65,18 @@ export const SearchBar = ({
         }
     }
 
-    const handleOpen = () => {
-        if (!currentUser) {
-            onOpen('loginModal')
-        }
-        else {
-            setOpen(true)
-        }
-    }
+
+
+    // const handleOpen = () => {
+    //     console.log(currentUser);
+
+    //     if (!currentUser) {
+    //         onOpen('loginModal')
+    //     }
+    //     else {
+    //         setOpen(true)
+    //     }
+    // }
 
     return (
         <>
@@ -82,7 +86,7 @@ export const SearchBar = ({
                     "relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64",
                     className
                 )}
-                onClick={handleOpen}
+                onClick={() => setOpen(true)}
             >
                 <span className="hidden lg:inline-flex">Search songs...</span>
                 <span className="inline-flex lg:hidden">Search...</span>

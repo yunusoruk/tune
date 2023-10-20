@@ -58,7 +58,6 @@ export function SongArtwork({
   const { onOpen } = useModal()
   const onPlay = useOnPlay(archive);
 
-  console.log(currentUser);
 
 
 
@@ -70,8 +69,6 @@ export function SongArtwork({
   }
 
   const handlePlay = (id: string) => {
-    // onPlay(song.id)
-    // player.setId(song.id);
     onPlay(id)
     player.setId(id);
   }
@@ -80,22 +77,6 @@ export function SongArtwork({
     <div className={cn("space-y-3", className)} {...props}>
       <ContextMenu>
         <ContextMenuTrigger>
-          {/* <div
-            className="overflow-hidden rounded-md cursor-pointer"
-
-            onClick={handlePlay}
-          >
-            <Image
-              src={song.image}
-              alt={song.title}
-              width={width}
-              height={height}
-              className={cn(
-                "h-auto w-auto object-cover transition-all hover:scale-105",
-                aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
-              )}
-            />
-          </div> */}
           <SongImage
             currentUser={currentUser}
             onChange={(id) => handlePlay(id)}
