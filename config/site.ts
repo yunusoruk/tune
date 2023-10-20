@@ -9,6 +9,6 @@ export const siteConfig: SiteConfig = {
   links: {
     twitter: "https://twitter.com/tune",
     github: "https://github.com/yunusoruk",
-    mail: "mailto:info@tune.io",
+    mail: "mailto:tune@tune.io",
   },
 }
