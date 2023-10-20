@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useSelectedLayoutSegment } from "next/navigation"
+import { redirect, useSelectedLayoutSegment } from "next/navigation"
 
 import { MainNavItem } from "@/types"
 import { siteConfig } from "@/config/site"
@@ -48,13 +48,8 @@ export function MainNav({ user, items, children }: MainNavProps) {
             .catch(error => console.error('Error fetching song:', error));
     }, [])
 
-    const handleSearch = () => {
-        if (!user) {
 
-        } else {
 
-        }
-    }
 
     return (
         <>

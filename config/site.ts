@@ -3,7 +3,7 @@ import { SiteConfig } from "@/types"
 export const siteConfig: SiteConfig = {
   name: "tune",
   description:
-    "Tune | Flow with the tune",
+    "Tune | Flow with tune",
   url: "https://tune.io",
   ogImage: "https://tune.io/og.jpg",
   links: {
