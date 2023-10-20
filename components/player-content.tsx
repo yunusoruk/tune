@@ -117,6 +117,7 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
                         onClick={onPlayPrevious}
                     />
                     <Icon
+
                         className="cursor-pointer"
                         onClick={handlePlay} />
                     <Icons.skipForward

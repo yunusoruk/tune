@@ -8,10 +8,13 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getCurrentUser } from "@/lib/session";
+import { User } from "@prisma/client";
 
 
-export default function Home() {
+export default async function Home() {
 
+    const currentUser = await getCurrentUser()
 
     return (
         <div className="container">
@@ -31,7 +34,7 @@ export default function Home() {
                         </TabsTrigger>
                     </TabsList>
                     <div className="ml-auto mr-4">
-                        <AddMusicButton />
+                        <AddMusicButton currentUser={currentUser as User} />
                     </div>
                 </div>
                 <TabsContent

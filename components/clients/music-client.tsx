@@ -5,6 +5,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import prismadb from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
 import { SongArtworkMobile } from "../song-artwork-mobile";
+import { User } from "@prisma/client";
 
 const MusicClient = async () => {
 
@@ -47,6 +48,7 @@ const MusicClient = async () => {
                     <div className="flex space-x-4 pb-4">
                         {songs.map((song) => (
                             <SongArtwork
+                                currentUser={currentUser as User}
                                 playlists={playlists}
                                 key={song.id}
                                 song={song}
@@ -64,6 +66,7 @@ const MusicClient = async () => {
             <div className=" lg:hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 py-4">
                 {songs.map((song) => (
                     <SongArtworkMobile
+                        currentUser={currentUser as User}
                         playlists={playlists}
                         key={song.id}
                         song={song}

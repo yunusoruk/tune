@@ -8,7 +8,7 @@ import { MainNavItem } from "@/types"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { MobileNav } from "@/components/mobile-nav"
-import { Command as Logo, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { UserAccountNav } from "./user-account-nav"
 import { Button, buttonVariants } from "./ui/button"
 import { useModal } from "@/hooks/use-modal-store"
@@ -48,37 +48,34 @@ export function MainNav({ user, items, children }: MainNavProps) {
             .catch(error => console.error('Error fetching song:', error));
     }, [])
 
+    const handleSearch = () => {
+        if (!user) {
+
+        } else {
+
+        }
+    }
+
     return (
         <>
             <div className="lg:flex lg:flex-row items-center hidden">
                 <ModeToggle />
             </div>
-            <div className=" lg:hidden">
+            {/* <div className=" lg:hidden">
                 <Icons.menu />
-            </div>
-            {/* <SearchBar
-                className="md:hidden mx-8"
-                data={[
-                    {
-                        label: "Songs",
-                        type: "song",
-                        data: archive?.map((song) => ({
-                            id: song.id,
-                            title: song.title,
-                            image: song.image,
-                        }))
-                    },
-                    {
-                        label: "Playlists",
-                        type: "playlist",
-                        data: playlists?.map((playlist) => ({
-                            id: playlist.id,
-                            title: playlist.title,
-                            image: playlist.image,
-                        }))
-                    }
-                ]}
-            /> */}
+            </div> */}
+            <button
+                className="flex items-center space-x-2 lg:hidden"
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+            >
+                {showMobileMenu ? <X /> :
+                    <Icons.menu />
+                }
+            </button>
+            {showMobileMenu && items && (
+                <MobileNav items={items}>{children}</MobileNav>
+            )}
+
             <div className="flex flex-row items-center space-x-4">
                 <SearchBar
                     className=""
@@ -115,14 +112,13 @@ export function MainNav({ user, items, children }: MainNavProps) {
                     </div>
                 ) : (
                     <nav className="flex flex-row items-center space-x-4">
-
                         <Button variant='secondary' size='sm' className="px-4" onClick={() => onOpen('loginModal')} >
                             Login
                         </Button>
-
                     </nav>
 
                 )}
+
             </div>
         </>
     )

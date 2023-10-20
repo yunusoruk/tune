@@ -1,30 +1,31 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { Button } from "./ui/button"
-import { ScrollArea } from "./ui/scroll-area"
-import { Separator } from "./ui/separator"
-import { siteConfig } from "@/config/site"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { Playlist, User } from "@prisma/client"
+
+import { cn } from "@/lib/utils"
+import { siteConfig } from "@/config/site"
 import { useWindowPath } from "@/hooks/use-window-path"
-import { Playlist } from "@prisma/client"
-import { useEffect, useState } from "react"
-import { Icons } from "./icons"
 import { useModal } from "@/hooks/use-modal-store"
-import { ModeToggle } from "./mode-toggle"
+
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { Icons } from "@/components/icons"
 
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     playlists: Playlist[]
+    currentUser: User
 }
 
-export function Sidebar({ className, playlists }: SidebarProps) {
+export function Sidebar({ className, currentUser, playlists }: SidebarProps) {
 
     const router = useRouter()
     const windowPath = useWindowPath()
     const { onOpen } = useModal()
-
     const [archive, setArchive] = useState<Playlist[] | undefined>([]);
 
     useEffect(() => {
@@ -33,6 +34,15 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             .then(data => setArchive(data))
             .catch(error => console.error('Error fetching song:', error));
     }, [])
+
+    const handlePlaylist = () => {
+        if (!currentUser) {
+            onOpen('loginModal')
+        } else {
+            onOpen('addPlaylistModal')
+
+        }
+    }
 
 
     return (
@@ -45,7 +55,6 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                 </Link>
                 <Separator />
             </div>
-            {/* <div className="flex flex-col h-full w-full space-y-4 overflow-y-auto"> */}
             <ScrollArea className="flex-1 ">
                 <div className="px-3 py-2">
                     <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
@@ -219,7 +228,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                         <Icons.add
                             size={28}
                             className="mr-4 cursor-pointer hover:bg-secondary p-1 rounded-md"
-                            onClick={() => onOpen('addPlaylistModal')}
+                            onClick={handlePlaylist}
                         />
                     </div>
                     <ScrollArea className="h-[300px] px-1">
@@ -256,6 +265,5 @@ export function Sidebar({ className, playlists }: SidebarProps) {
 
         </div>
 
-        // </div>
     )
 }

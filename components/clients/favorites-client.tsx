@@ -4,17 +4,27 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import prismadb from "@/lib/prismadb";
 import { getSessionUser } from "@/lib/session";
-import { useRouter } from "next/navigation";
-import { Song, User } from "@prisma/client";
+import { redirect, useRouter } from "next/navigation";
+import { LikedSong, Song, User } from "@prisma/client";
 import { FavoriteArtwork } from "../favorite-artwork";
 import { FavoritesEmptyPlaceholder } from "../favorites-empty-placeholder copy";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface FavoritesClientProps {
-    currentUser?: User
+    currentUser?: User & {
+        likedSongs: LikedSong[] & {
+            song: Song
+        }
+    }
 }
 
 
 const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
+
+    if (!currentUser) {
+        redirect('/login')
+    }
+
 
     const favorites = await prismadb.likedSong.findMany({
         where: {
@@ -24,6 +34,9 @@ const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
             song: true
         }
     })
+
+    console.log(currentUser);
+
 
     const songs = await prismadb.song.findMany({
         include: {

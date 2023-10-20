@@ -14,7 +14,7 @@ import {
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 import { Icons } from "@/components/icons"
-import { LikedSong, Playlist, Song } from "@prisma/client"
+import { LikedSong, Playlist, Song, User } from "@prisma/client"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/use-toast";
@@ -33,6 +33,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import SongImageMobile from "./song-image-mobile";
 
 
 interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -41,6 +42,7 @@ interface SongArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
     }
     archive: Song[]
     playlists?: Playlist[]
+    currentUser?: User
     aspectRatio?: "portrait" | "square"
     width?: number
     height?: number
@@ -50,6 +52,7 @@ export function SongArtworkMobile({
     song,
     archive,
     playlists,
+    currentUser,
     aspectRatio = "portrait",
     width,
     height,
@@ -67,23 +70,30 @@ export function SongArtworkMobile({
 
     }
 
-    const handlePlay = () => {
-        onPlay(song.id)
-        player.setId(song.id);
+    const handlePlay = (id: string) => {
+        // onPlay(song.id)
+        // player.setId(song.id);
+        onPlay(id)
+        player.setId(id);
     }
 
     return (
         <ContextMenu>
             <ContextMenuTrigger className="">
                 <Card className="border-none shadow-none ">
-                    <div className="relative rounded-md overflow-hidden cursor-pointer aspect-square w-full" onClick={handlePlay}>
-                        <Image
+                    <div className="relative rounded-md overflow-hidden cursor-pointer aspect-square w-full">
+                        {/* <Image
                             src={song.image}
                             alt={song.title}
                             fill
                             className={cn(
                                 " w-full h-full object-cover transition-all hover:scale-105",
                             )}
+                        /> */}
+                        <SongImageMobile
+                            currentUser={currentUser}
+                            onChange={(id) => handlePlay(id)}
+                            song={song}
                         />
                     </div>
                     <div className="space-y-1 text-sm mt-2">

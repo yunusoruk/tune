@@ -30,7 +30,7 @@ export default async function MarketingLayout({
             <div className="flex-1 bg-background">
                 <div className="grid lg:grid-cols-5">
                     <div className="">
-                        <Sidebar playlists={[]} className="hidden lg:block " />
+                        <Sidebar currentUser={user as User} playlists={[]} className="hidden lg:block " />
                     </div>
                     <div className="col-span-3 lg:col-span-4 lg:border-l">
                         <div className="h-full">

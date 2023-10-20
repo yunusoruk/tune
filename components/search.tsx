@@ -1,9 +1,13 @@
 "use client";
 
-import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { User } from "@prisma/client";
+import Image from "next/image";
 
+import { cn } from "@/lib/utils";
+import usePlayer from "@/hooks/use-player";
+import { useModal } from "@/hooks/use-modal-store";
+import { Button } from "@/components/ui/button";
 import {
     CommandDialog,
     CommandEmpty,
@@ -12,12 +16,10 @@ import {
     CommandItem,
     CommandList
 } from "@/components/ui/command";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
-import usePlayer from "@/hooks/use-player";
+
 
 interface ServerSearchProps extends React.HTMLAttributes<HTMLElement> {
+    currentUser?: User
     data: {
         label: string;
         type: "song" | "playlist",
@@ -31,16 +33,13 @@ interface ServerSearchProps extends React.HTMLAttributes<HTMLElement> {
 
 export const SearchBar = ({
     data,
+    currentUser,
     className
 }: ServerSearchProps) => {
+
     const [open, setOpen] = useState(false);
-    const router = useRouter();
-    const params = useParams();
-
     const player = usePlayer()
-
-    console.log(data);
-
+    const { onOpen } = useModal()
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -58,40 +57,32 @@ export const SearchBar = ({
         setOpen(false);
 
         if (type === "song") {
-            // return router.push(`/servers/${params?.serverId}/conversations/${id}`)
             return player.setId(id)
         }
-
+        // TODO: ADD PLAYLIST FUNCTIONALITY
         if (type === "playlist") {
             // return player.setIds([playlist])
         }
     }
 
+    const handleOpen = () => {
+        if (!currentUser) {
+            onOpen('loginModal')
+        }
+        else {
+            setOpen(true)
+        }
+    }
+
     return (
         <>
-            {/* <button
-                onClick={() => setOpen(true)}
-                className="group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition"
-            >
-                <Search className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
-                <p
-                    className="font-semibold text-sm text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition"
-                >
-                    Search
-                </p>
-                <kbd
-                    className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground ml-auto"
-                >
-                    <span className="text-xs">⌘</span>K
-                </kbd>
-            </button> */}
             <Button
                 variant="outline"
                 className={cn(
                     "relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64",
                     className
                 )}
-                onClick={() => setOpen(true)}
+                onClick={handleOpen}
             >
                 <span className="hidden lg:inline-flex">Search songs...</span>
                 <span className="inline-flex lg:hidden">Search...</span>
