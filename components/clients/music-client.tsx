@@ -92,6 +92,8 @@ const MusicClient = async () => {
                     <div className="flex space-x-4 pb-4">
                         {songs.map((song) => (
                             <SongArtwork
+                                currentUser={currentUser as User}
+                                playlists={playlists}
                                 key={song.id}
                                 song={song}
                                 archive={songs}
