@@ -1,48 +1,35 @@
 import { Separator } from "@/components/ui/separator";
 import { SongArtwork } from "@/components/song-artwork";
-import { Button } from "@/components/ui/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import prismadb from "@/lib/prismadb";
-import { getSessionUser } from "@/lib/session";
-import { redirect, useRouter } from "next/navigation";
-import { LikedSong, Song, User } from "@prisma/client";
-import { FavoriteArtwork } from "../favorite-artwork";
+import { getCurrentUser } from "@/lib/session";
+import { User } from "@prisma/client";
 import { FavoritesEmptyPlaceholder } from "../favorites-empty-placeholder copy";
-import { useModal } from "@/hooks/use-modal-store";
-
-interface FavoritesClientProps {
-    currentUser?: User & {
-        likedSongs: LikedSong[] & {
-            song: Song
-        }
-    }
-}
 
 
-const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
 
-    if (!currentUser) {
-        redirect('/login')
-    }
 
+const FavoritesClient = async () => {
+
+    const user = await getCurrentUser()
 
     const favorites = await prismadb.likedSong.findMany({
         where: {
-            userId: currentUser?.id
+            userId: user?.id
         },
         include: {
-            song: true
+            song: {
+                include: {
+                    likedSongs: true
+                }
+            }
         }
     })
-
-    console.log(currentUser);
-
 
     const songs = await prismadb.song.findMany({
         include: {
             likedSongs: {
                 where: {
-                    userId: currentUser?.id
+                    userId: user?.id
                 }
             }
         }
@@ -74,6 +61,7 @@ const FavoritesClient = async ({ currentUser }: FavoritesClientProps) => {
             <div className="flex space-x-4 pb-4">
                 {favorites.map((favorite) => (
                     <SongArtwork
+                        currentUser={user as User}
                         archive={songs}
                         key={favorite.songId}
                         song={favorite.song as any}

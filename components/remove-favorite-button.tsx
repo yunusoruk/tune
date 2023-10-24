@@ -35,7 +35,9 @@ const RemoveFavoriteButton: FC<RemoveFavoriteButtonProps> = ({ songId, likedSong
             toast({
                 description: "Song removed from favorites"
             })
-        } catch (error) {
+        } catch (error: any) {
+            console.log(error);
+
             toast({
                 description: "Oops, something went wrong."
             })
