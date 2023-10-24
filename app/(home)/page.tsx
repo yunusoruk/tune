@@ -10,64 +10,13 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getCurrentUser } from "@/lib/session";
 import { User } from "@prisma/client";
+import { redirect } from "next/navigation";
 
 
 export default async function Home() {
 
-    const currentUser = await getCurrentUser()
+    redirect('/home')
 
-    return (
-        <div className="container">
-            <Tabs defaultValue="music" className="h-full space-y-6">
-                <div className="space-between flex items-center">
-                    <TabsList>
-                        <TabsTrigger value="music" className="relative">
-                            Music
-                        </TabsTrigger>
 
-                        <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
-                        <TabsTrigger value="favorites" className="relative">
-                            Favorites
-                        </TabsTrigger>
-                        <TabsTrigger value="live" disabled>
-                            Live
-                        </TabsTrigger>
-                    </TabsList>
-                    <div className="ml-auto mr-4">
-                        <AddMusicButton currentUser={currentUser as User} />
-                    </div>
-                </div>
-                <TabsContent
-                    value="music"
-                    className="border-none p-0 outline-none"
-                >
-                    <MusicClient />
-                </TabsContent>
-                <TabsContent
-                    value="favorites"
-                    className="border-none p-0 outline-none"
-                >
-                    <FavoritesClient />
-                </TabsContent>
-                <TabsContent
-                    value="podcasts"
-                    className="h-full flex-col border-none p-0 "
-                >
-                    <div className="flex items-center justify-between">
-                        <div className="space-y-1">
-                            <h2 className="text-2xl font-semibold tracking-tight">
-                                New Episodes
-                            </h2>
-                            <p className="text-sm text-muted-foreground">
-                                Your favorite podcasts. Updated daily.
-                            </p>
-                        </div>
-                    </div>
-                    <Separator className="my-4" />
-                    <PodcastEmptyPlaceholder />
-                </TabsContent>
-            </Tabs>
-        </div>
-    )
 }
 

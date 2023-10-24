@@ -39,7 +39,6 @@ const Player = ({ className }: PlayerProps) => {
 
 
     if (!song || !player.activeId) {
-        console.log('gere');
 
         return (
             <PlayerEmptyPlaceholder className={cn("sticky bottom-0 z-40 border-t bg-background", className)} />
@@ -47,7 +46,7 @@ const Player = ({ className }: PlayerProps) => {
     }
 
     return (
-        <PlayerContent className={cn("sticky bottom-0 z-40 border-t bg-background", className)} song={song} />
+        <PlayerContent className={cn("fixed bottom-0 z-40 border-t bg-background", className)} song={song} />
 
     );
 }
