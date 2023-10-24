@@ -27,7 +27,7 @@ export default async function Home() {
             </div>
             <div className="px-8">
                 <Tabs defaultValue="music" className="h-full space-y-6">
-                    <div className="space-between flex items-center">
+                    <div className="space-between flex ">
                         <TabsList>
                             <TabsTrigger value="music" className="relative">
                                 Music
@@ -41,7 +41,7 @@ export default async function Home() {
                                 Live
                             </TabsTrigger>
                         </TabsList>
-                        <div className="ml-auto mr-4">
+                        <div className="ml-auto mr-4 hidden sm:block ">
                             <AddMusicButton currentUser={currentUser as User} />
                         </div>
                     </div>
