@@ -19,7 +19,7 @@ export default async function Home() {
     const currentUser = await getCurrentUser()
 
     return (
-        <div className="">
+        <div className="pb-28">
             <div className="sticky top-0 z-40 border-b bg-background mb-4 px-3">
                 <div className="flex h-20 items-center justify-between">
                     <MainNav user={currentUser as User} items={dashboardConfig.mainNav} />
