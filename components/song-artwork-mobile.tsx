@@ -71,8 +71,6 @@ export function SongArtworkMobile({
     }
 
     const handlePlay = (id: string) => {
-        // onPlay(song.id)
-        // player.setId(song.id);
         onPlay(id)
         player.setId(id);
     }
@@ -82,14 +80,6 @@ export function SongArtworkMobile({
             <ContextMenuTrigger className="">
                 <Card className="border-none shadow-none ">
                     <div className="relative rounded-md overflow-hidden cursor-pointer aspect-square w-full">
-                        {/* <Image
-                            src={song.image}
-                            alt={song.title}
-                            fill
-                            className={cn(
-                                " w-full h-full object-cover transition-all hover:scale-105",
-                            )}
-                        /> */}
                         <SongImageMobile
                             currentUser={currentUser}
                             onChange={(id) => handlePlay(id)}
@@ -102,22 +92,7 @@ export function SongArtworkMobile({
                     </div>
 
                 </Card>
-                {/* <div
-                        className="overflow-hidden rounded-md cursor-pointer"
-                        onClick={handlePlay}
-                    >
-                        
-                        <Image
-                            src={song.image}
-                            alt={song.title}
-                            width={width}
-                            height={height}
-                            className={cn(
-                                "h-auto w-auto object-cover transition-all hover:scale-105",
-                                aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
-                            )}
-                        />
-                    </div> */}
+
             </ContextMenuTrigger>
             <ContextMenuContent className="w-40">
                 <ContextMenuItem disabled >Add to Library</ContextMenuItem>

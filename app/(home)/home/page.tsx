@@ -1,12 +1,8 @@
 import AddMusicButton from "@/components/add-music-button";
 import FavoritesClient from "@/components/clients/favorites-client";
 import MusicClient from "@/components/clients/music-client";
-import { Icons } from "@/components/icons";
 import { MainNav } from "@/components/main-nav";
 import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder";
-import { SongArtwork } from "@/components/song-artwork";
-import { Button } from "@/components/ui/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { dashboardConfig } from "@/config/dashboard";
@@ -34,9 +30,14 @@ export default async function Home() {
                             </TabsTrigger>
 
                             <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
-                            <TabsTrigger value="favorites" className="relative">
-                                Favorites
-                            </TabsTrigger>
+                            {
+                                currentUser && (
+                                    <TabsTrigger value="favorites" className="relative">
+                                        Favorites
+                                    </TabsTrigger>
+                                )
+                            }
+
                             <TabsTrigger value="live" disabled>
                                 Live
                             </TabsTrigger>

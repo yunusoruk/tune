@@ -1,19 +1,7 @@
-import Link from "next/link"
-
-import { marketingConfig } from "@/config/marketing"
-import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { MainNav } from "@/components/main-nav"
-import { UserAccountNav } from "@/components/user-account-nav"
 import { getCurrentUser } from "@/lib/session"
-import { notFound } from "next/navigation"
-import { Sidebar } from "@/components/sidebar2"
-import { dashboardConfig } from "@/config/dashboard"
-import { ModeToggle } from "@/components/mode-toggle"
+import { Sidebar } from "@/components/sidebar"
 import { User } from "@prisma/client"
 import Player from "@/components/player"
-import { SiteFooter } from "@/components/site-footer"
-
 
 interface MarketingLayoutProps {
     children: React.ReactNode

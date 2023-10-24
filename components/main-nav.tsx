@@ -1,12 +1,7 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { redirect, useSelectedLayoutSegment } from "next/navigation"
-
 import { MainNavItem } from "@/types"
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
 import { MobileNav } from "@/components/mobile-nav"
 import { X } from 'lucide-react'
 import { UserAccountNav } from "./user-account-nav"
@@ -25,9 +20,6 @@ interface MainNavProps {
 
 export function MainNav({ user, items, children }: MainNavProps) {
 
-
-
-    const segment = useSelectedLayoutSegment()
     const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
     const [archive, setArchive] = React.useState<Song[] | undefined>([]);
     const [playlists, setPlaylists] = React.useState<Playlist[] | undefined>([]);
@@ -49,16 +41,11 @@ export function MainNav({ user, items, children }: MainNavProps) {
     }, [])
 
 
-
-
     return (
         <>
             <div className="lg:flex lg:flex-row items-center hidden">
                 <ModeToggle />
             </div>
-            {/* <div className=" lg:hidden">
-                <Icons.menu />
-            </div> */}
             <button
                 className="flex items-center space-x-2 lg:hidden"
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -70,50 +57,49 @@ export function MainNav({ user, items, children }: MainNavProps) {
             {showMobileMenu && items && (
                 <MobileNav items={items}>{children}</MobileNav>
             )}
-
             <div className="flex flex-row items-center space-x-4">
-                <SearchBar
-                    className=""
-                    data={[
-                        {
-                            label: "Songs",
-                            type: "song",
-                            data: archive?.map((song) => ({
-                                id: song.id,
-                                title: song.title,
-                                image: song.image,
-                            }))
-                        },
-                        {
-                            label: "Playlists",
-                            type: "playlist",
-                            data: playlists?.map((playlist) => ({
-                                id: playlist.id,
-                                title: playlist.title,
-                                image: playlist.image,
-                            }))
-                        }
-                    ]}
-                />
                 {user ? (
-                    <div className="flex flex-row items-center space-x-2">
-                        <UserAccountNav
-                            user={{
-                                name: user.name,
-                                image: user.image,
-                                email: user.email,
-                            }}
+                    <>
+                        <SearchBar
+                            className=""
+                            data={[
+                                {
+                                    label: "Songs",
+                                    type: "song",
+                                    data: archive?.map((song) => ({
+                                        id: song.id,
+                                        title: song.title,
+                                        image: song.image,
+                                    }))
+                                },
+                                {
+                                    label: "Playlists",
+                                    type: "playlist",
+                                    data: playlists?.map((playlist) => ({
+                                        id: playlist.id,
+                                        title: playlist.title,
+                                        image: playlist.image,
+                                    }))
+                                }
+                            ]}
                         />
-                    </div>
+                        <div className="flex flex-row items-center space-x-2">
+                            <UserAccountNav
+                                user={{
+                                    name: user.name,
+                                    image: user.image,
+                                    email: user.email,
+                                }}
+                            />
+                        </div>
+                    </>
                 ) : (
                     <nav className="flex flex-row items-center space-x-4">
                         <Button variant='secondary' size='sm' className="px-4" onClick={() => onOpen('loginModal')} >
                             Login
                         </Button>
                     </nav>
-
                 )}
-
             </div>
         </>
     )

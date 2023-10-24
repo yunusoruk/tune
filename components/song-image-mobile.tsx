@@ -17,7 +17,6 @@ interface SongImageProps {
 
 const SongImageMobile = ({ song, width, height, aspectRatio, onChange, currentUser }: SongImageProps) => {
 
-
     const router = useRouter()
 
     const handleClick = () => {
@@ -27,8 +26,6 @@ const SongImageMobile = ({ song, width, height, aspectRatio, onChange, currentUs
         }
         onChange(song.id)
     }
-
-
 
     return (
         <div
