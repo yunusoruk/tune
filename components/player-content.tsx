@@ -178,7 +178,7 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
                         />
                     </div>
                     <div className="w-full md:flex flex-row items-center space-x-2 hidden">
-                        <Label className="text-muted-foreground">
+                        <Label className="text-muted-foreground text-xs">
                             {formatTime(currentTime)}
                         </Label>
                         <SlideBar
@@ -190,7 +190,7 @@ export function PlayerContent({ song, className }: PlayerContentProps) {
                                 setCurrentTime(newTime);
                             }}
                         />
-                        <Label className="text-muted-foreground">
+                        <Label className="text-muted-foreground text-xs">
                             {formatTime(duration)}
                         </Label>
 
