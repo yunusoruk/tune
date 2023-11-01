@@ -6,6 +6,7 @@ import prismadb from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
 import { SongArtworkMobile } from "../song-artwork-mobile";
 import { User } from "@prisma/client";
+import { PlaylistArtwork } from "../playlist-artwork";
 
 const MusicClient = async () => {
 
@@ -27,6 +28,9 @@ const MusicClient = async () => {
     const playlists = await prismadb.playlist.findMany({
         where: {
             userId: currentUser?.id
+        },
+        include: {
+            songs: true
         }
     })
 
@@ -90,6 +94,24 @@ const MusicClient = async () => {
             <div className="relative hidden lg:block">
                 <ScrollArea>
                     <div className="flex space-x-4 pb-4">
+                        {playlists.map((playlist) => (
+                            <PlaylistArtwork
+                                currentUser={currentUser as User}
+                                key={playlist.id}
+                                playlist={playlist}
+                                className="w-[150px]"
+                                aspectRatio="square"
+                                width={150}
+                                height={150}
+                            />
+                        ))}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+            </div>
+            {/* <div className="relative hidden lg:block">
+                <ScrollArea>
+                    <div className="flex space-x-4 pb-4">
                         {songs.map((song) => (
                             <SongArtwork
                                 currentUser={currentUser as User}
@@ -106,7 +128,7 @@ const MusicClient = async () => {
                     </div>
                     <ScrollBar orientation="horizontal" />
                 </ScrollArea>
-            </div>
+            </div> */}
         </>
     );
 }

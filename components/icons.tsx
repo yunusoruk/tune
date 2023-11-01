@@ -34,12 +34,14 @@ import {
     Volume1,
     Volume2,
     VolumeX,
-    X
+    X,
+    Dot
 
 } from "lucide-react"
 
 
 export const Icons = {
+    dot: Dot,
     menu: Menu,
     plus: Plus,
     skipForward: SkipForward,

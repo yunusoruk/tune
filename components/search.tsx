@@ -67,17 +67,6 @@ export const SearchBar = ({
 
 
 
-    // const handleOpen = () => {
-    //     console.log(currentUser);
-
-    //     if (!currentUser) {
-    //         onOpen('loginModal')
-    //     }
-    //     else {
-    //         setOpen(true)
-    //     }
-    // }
-
     return (
         <>
             <Button

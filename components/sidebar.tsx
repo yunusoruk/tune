@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Playlist, User } from "@prisma/client"
+import { Playlist, Song, User } from "@prisma/client"
 
 import { cn } from "@/lib/utils"
 import { siteConfig } from "@/config/site"
@@ -14,10 +14,14 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Icons } from "@/components/icons"
+import PlaylistItem from "./sidebar-playlist-item"
 
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-    playlists: Playlist[]
+    playlists: (Playlist & {
+        songs: Song[],
+        user: User
+    })[]
     currentUser: User
 }
 
@@ -26,7 +30,7 @@ export function Sidebar({ className, currentUser, playlists }: SidebarProps) {
     const router = useRouter()
     const windowPath = useWindowPath()
     const { onOpen } = useModal()
-    const [archive, setArchive] = useState<Playlist[] | undefined>([]);
+    const [archive, setArchive] = useState<(Playlist & { songs: Song[], user: User })[] | undefined>([]);
 
     useEffect(() => {
         fetch(`/api/playlist`)
@@ -234,30 +238,12 @@ export function Sidebar({ className, currentUser, playlists }: SidebarProps) {
                         </div>
                         <ScrollArea className="h-[300px] px-1">
                             <div className="space-y-1 p-2">
-                                {archive?.map((playlist, i) => (
-                                    <Button
-                                        key={`${playlist}-${i}`}
-                                        variant="ghost"
-                                        className="w-full justify-start font-normal"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            className="mr-2 h-4 w-4"
-                                        >
-                                            <path d="M21 15V6" />
-                                            <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                                            <path d="M12 12H3" />
-                                            <path d="M16 6H3" />
-                                            <path d="M12 18H3" />
-                                        </svg>
-                                        {playlist.title}
-                                    </Button>
+                                {archive?.map((playlist) => (
+                                    <PlaylistItem
+                                        playlist={playlist}
+                                        key={playlist.id}
+                                    />
+
                                 ))}
                             </div>
                         </ScrollArea>

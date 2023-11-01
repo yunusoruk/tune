@@ -1,13 +1,10 @@
-import { NextResponse } from 'next/server';
-import prismadb from '@/lib/prismadb';
-import { getCurrentUser } from '@/lib/session';
+import { NextResponse } from "next/server";
+import prismadb from "@/lib/prismadb";
+import { getCurrentUser } from "@/lib/session";
 
- 
-export async function POST(
-  req: Request
-) {
+export async function POST(req: Request) {
   try {
-    const currentUser = await getCurrentUser()
+    const currentUser = await getCurrentUser();
 
     if (!currentUser) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -21,50 +18,48 @@ export async function POST(
       return new NextResponse("Title is required", { status: 400 });
     }
 
-
-
     if (!imageUrl) {
-        return new NextResponse("Image is required", { status: 400 });
-      }
-
+      return new NextResponse("Image is required", { status: 400 });
+    }
 
     console.log(`https://${process.env.BUCKET_NAME}.${imageUrl}`);
 
     const playlist = await prismadb.playlist.create({
-        data: {
-            userId: currentUser.id,
-            title,
-            image: `https://${process.env.BUCKET_NAME}.${imageUrl}`
-        }
-    })
-    
-  
+      data: {
+        userId: currentUser.id,
+        title,
+        image: `https://${process.env.BUCKET_NAME}.${imageUrl}`,
+      },
+    });
+
     return NextResponse.json(playlist);
   } catch (error) {
-    console.log('[PLAYLIST_POST]', error);
+    console.log("[PLAYLIST_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
-};
+}
 
-export async function GET(
-  req: Request
-) {
+export async function GET(req: Request) {
   try {
-    const currentUser = await getCurrentUser()
+    const currentUser = await getCurrentUser();
 
     if (!currentUser) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const archive = await prismadb.playlist.findMany({
-        where: {
-            userId: currentUser.id
-        }
-    })
+    const playlists = await prismadb.playlist.findMany({
+      where: {
+        userId: currentUser.id,
+      },
+      include: {
+        songs: true,
+        user: true,
+      },
+    });
 
-    return NextResponse.json(archive);
+    return NextResponse.json(playlists);
   } catch (error) {
-    console.log('[PLAYLIST_GET]', error);
+    console.log("[PLAYLIST_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
-};
+}
